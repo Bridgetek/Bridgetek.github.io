@@ -1,0 +1,162 @@
+Integrate the rotary encoder/button encoder into the project.
+=============================================================
+
+Work with exported Pico projects
+--------------------------------
+
+1. In the **AppScreen__Generated.c** file, add a function called ``checkHardwareUpdate()``:
+
+.. code-block:: c
+
+   enum KnobRotaryStatus
+   {
+      KnobRotaryLeft = -1,
+      KnobRotaryNoAction = 0,
+      KnobRotaryRight = 1
+   };
+
+   enum KnobButtonStatus
+   {
+      KnobButtonNotSuccess = -1,
+      KnonButtonNoAction = 0,
+      KnobButtonPressed = 1,
+      KnobButtonReleased = 2
+   };
+
+   void checkHardwareUpdate()
+   {
+      int dataRotary = KnobRotaryNoAction;
+      encoder_read(&dataRotary);
+      if (dataRotary == KnobRotaryRight)
+      {
+         //Implement code to handle right rotation here
+      }
+      else if (dataRotary == KnobRotaryLeft)
+      {
+         //Implement code to handle left rotation here
+      }
+
+      int dataButton = KnonButtonNoAction;
+      button_read(&dataButton);
+      if (dataButton == KnobButtonReleased)
+      {
+         //Implement code to handle button released here
+      }
+   }
+
+2. In the **AppScreen__Generated.c** file, call ``checkHardwareUpdate()`` in ``AppScreen_Update(AppScreen *context)`` mothod:
+
+.. code-block:: c
+   :emphasize-lines: 4
+
+   void AppScreen_Update(AppScreen *context)
+   {
+      void *owner = context->Owner;
+      checkHardwareUpdate();
+      if (context->Main_Page && !context->Main_Page->Widget.Active)
+      {
+         AppScreen__Main_Page__Destroy(context);
+      }
+      Ft_Esd_Widget_Update((Ft_Esd_Widget *)context);
+   }
+   
+Explain about this code: 
+
+1. Enum ``KnobRotaryStatus``: This enumeration represents the possible states for the rotary encoder:
+
+* ``KnobRotaryLeft = -1``: The knob has been rotated to the left.
+* ``KnobRotaryNoAction = 0``: No rotation or neutral state.
+* ``KnobRotaryRight = 1``: The knob has been rotated to the right.
+
+2. Enum KnobButtonStatus: This enumeration represents the possible states for the button:
+
+* ``KnobButtonNotSuccess = -1``: The button press was unsuccessful (could represent an error).
+* ``KnonButtonNoAction = 0``: No button action.
+* ``KnobButtonPressed = 1``: The button has been pressed.
+* ``KnobButtonReleased = 2``: The button has been released.
+
+3. ``checkHardwareUpdate()`` Function: This function checks the status of the rotary encoder and the button and handles the events based on their statuses.
+
+Rotary Encoder:
+
+* dataRotary is initialized to KnobRotaryNoAction.
+* encoder_read(&dataRotary) updates dataRotary with the current state of the rotary encoder.
+* If dataRotary equals KnobRotaryRight, it indicates a right rotation, and custom code should be added to handle it.
+* If dataRotary equals KnobRotaryLeft, it indicates a left rotation, and custom code should handle that event as well.
+
+Button:
+
+* dataButton is initialized to KnonButtonNoAction (neutral state).
+* button_read(&dataButton) updates dataButton with the current button status.
+* If dataButton equals KnobButtonReleased, custom code can be implemented to handle the button release event.
+
+4. ``AppScreen_Update()`` is a loop function. In  ``AppScreen_Update()``, we call  ``checkHardwareUpdate()`` to check the rotary encoder and button encoder states .
+
+Summary:
+
+* The ``checkHardwareUpdate()`` function monitors the state of the rotary encoder and button, handling actions based on rotation and button release events.
+* The ``AppScreen_Update()`` function is called regularly to update the user interface and process hardware events. 
+
+Work with ESD projects
+----------------------
+
+1. In the ESD project browser, create a file titled **AppScreen.c**.
+2. Add the following source code to **AppScreen.c**:
+
+.. code-block:: c
+   :emphasize-lines: 21
+
+   #include "Ft_Esd.h"
+   #include "AppScreen.h"
+   enum KnobRotaryStatus 
+   {
+      KnobRotaryLeft = -1,
+      KnobRotaryNoAction = 0,
+      KnobRotaryRight = 1
+   };
+
+   enum KnobButtonStatus 
+   {
+      KnobButtonNotSuccess = -1,
+      KnonButtonNoAction = 0,
+      KnobButtonPressed = 1,
+      KnobButtonReleased = 2
+   };
+
+   ESD_METHOD(AppScreen_Update_Signal, Context = AppScreen)
+   void AppScreen_Update_Signal(AppScreen *context)
+   {
+      checkHardwareUpdate();
+   }
+
+   void checkHardwareUpdate()
+   {
+   #if !ESD_SIMULATION
+      int dataRotary = KnobRotaryNoAction;
+      encoder_read(&dataRotary);
+      if (dataRotary == KnobRotaryRight)
+      {
+         //Implement code to handle right rotation here
+      }
+      else if (dataRotary == KnobRotaryLeft)
+      {
+         //Implement code to handle left rotation here
+      }
+
+      int dataButton = KnonButtonNoAction;
+      button_read(&dataButton);
+      if (dataButton == KnobButtonReleased)
+      {
+         //Implement code to handle button released here
+      }
+   #endif
+   }
+
+3. In ESD project browser, click **AppScreen.page**.
+4. In ESD Screen Editor of **AppScreen.page**, add a ``Update`` slot. 
+5. Connect the ``Update`` slot to ``AppScreen_Update_Signal`` mothod.
+
+.. image:: images/connect_update_slot.png
+
+.. note::
+   Since the emulator cannot simulate the rotary encoder and button encoder, we need to wrap content of the function ``checkHardwareUpdate()`` fu with a !ESD_SIMULATION macros to prevent compilation errors.
