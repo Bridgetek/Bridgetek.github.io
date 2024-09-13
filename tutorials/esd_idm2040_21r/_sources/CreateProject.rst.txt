@@ -1,0 +1,13 @@
+Create IDM2040-21R Projects
+===========================
+
+You can create ESD project that can generate C code for IDM2040-21R. Build the applications and deploy the project to IDM2040-21R target platforms.
+To create a ESD IDM2040-21R project:
+
+1. Select **File > New Project > Select option ID2040-21R  > Next**
+
+.. image:: images/create_project.png
+
+2. In configure project dialog, press **Configure**
+
+.. image:: images/config_project.png
