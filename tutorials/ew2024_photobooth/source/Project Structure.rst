@@ -9,7 +9,7 @@ Project Structure
 
       See: `ESP32S3 product page <https://espressif.com/en/products/socs/esp32-s3>`_.
 
-      - **BT820:** The 5th Generation Embedded Video Engine (EVE) with an SD card 32GB attached and an external 2GB DDR attached, an easy-to-use family of graphics controllers targeted at embedded applications to generate advanced high-quality Human Machine Interfaces (HMIs). 
+      - **BT820:** The 5th Generation Embedded Video Engine (EVE) with an SD card 32GB attached and an external 1Gbit DDR3L SDRAM attached, an easy-to-use family of graphics controllers targeted at embedded applications to generate advanced high-quality Human Machine Interfaces (HMIs). 
          
       See: `BT820 product page <https://brtchip.com/product/bt820/>`_.
 
