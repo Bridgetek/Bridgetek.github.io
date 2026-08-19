@@ -1,0 +1,8 @@
+# Jekyll artifacts (only appear if Jekyll is run locally — GitHub Pages is
+# disabled for this repo via .nojekyll)
+.jekyll-cache/
+_site/
+
+# OS / editor
+.DS_Store
+Thumbs.db

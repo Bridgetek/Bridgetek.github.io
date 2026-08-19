@@ -1,0 +1,14 @@
+# -----------------------------------------------------------------------------
+# GitHub Pages / Jekyll configuration
+#
+# This site is built with Astro (source lives in design/dev) and deployed as
+# plain static files at the repository root. The `.nojekyll` file already makes
+# GitHub Pages skip Jekyll entirely. This config is a safety net so that if
+# Jekyll IS ever run locally (`jekyll build`), it never tries to parse the Astro
+# source (.astro files have `---` front matter that is NOT valid YAML).
+# -----------------------------------------------------------------------------
+
+exclude:
+  - design          # Astro source (dev + dist + node_modules)
+  - design1         # legacy design
+  - node_modules
