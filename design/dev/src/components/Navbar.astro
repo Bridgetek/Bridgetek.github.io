@@ -1,0 +1,171 @@
+---
+import type { Lang } from '../data/site';
+import { getContent, langUrl } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const content = getContent(lang);
+const nav = content.nav;
+const enUrl = langUrl('en');
+const chUrl = langUrl('ch');
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+>
+  <div
+    class="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
+  >
+    <!-- Brand -->
+    <a
+      href="/"
+      class="group flex shrink-0 items-center gap-3"
+      aria-label={`${nav.brand.name} ${nav.brand.sub}`}
+    >
+      <img
+        src="/Bridgetek_FA.svg"
+        alt={nav.brand.name}
+        class="h-9 w-auto brightness-0 invert transition-transform duration-300 group-hover:scale-105"
+        width="120"
+        height="36"
+      />
+      <span class="hidden flex-col leading-none sm:flex">
+        <span class="font-display text-lg font-bold tracking-tight text-white">
+          {nav.brand.name}
+        </span>
+        <span class="text-xs font-semibold uppercase tracking-[0.3em] text-eve-400">
+          {nav.brand.sub}
+        </span>
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+      {
+        nav.links.map((link) => (
+          <a
+            href={`#${link.id}`}
+            class="rounded-full px-3.5 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-eve-300"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href={nav.community.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="rounded-full px-3.5 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-eve-300"
+      >
+        {nav.community.label}
+        <Icon name="external" size={14} class="ml-1 inline -translate-y-px opacity-70" />
+      </a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <!-- Language switch -->
+      <div
+        class="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur"
+        role="group"
+        aria-label={nav.language.label}
+      >
+        <a
+          href={enUrl}
+          class="lang-pill rounded-full px-3.5 py-1.5 text-xs font-semibold text-slate-200"
+          aria-current={lang === 'en'}
+        >
+          {nav.language.en}
+        </a>
+        <a
+          href={chUrl}
+          class="lang-pill rounded-full px-3.5 py-1.5 text-xs font-semibold text-slate-200"
+          aria-current={lang === 'ch'}
+        >
+          {nav.language.ch}
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button
+        id="menu-toggle"
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 lg:hidden"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="menu" size={22} class="menu-icon-open" />
+        <Icon name="close" size={22} class="menu-icon-close hidden" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden border-t border-white/5 bg-ink-900/95 px-4 pb-6 pt-3 backdrop-blur-xl lg:hidden"
+  >
+    <nav class="flex flex-col gap-1" aria-label="Mobile primary">
+      {
+        nav.links.map((link) => (
+          <a
+            href={`#${link.id}`}
+            class="rounded-xl px-4 py-3 text-base font-medium text-slate-200 transition-colors hover:bg-white/5 hover:text-eve-300"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a
+        href={nav.community.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-2 rounded-xl px-4 py-3 text-base font-medium text-slate-200 transition-colors hover:bg-white/5 hover:text-eve-300"
+      >
+        {nav.community.label}
+        <Icon name="external" size={16} class="opacity-70" />
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header') as HTMLElement | null;
+  const toggle = document.getElementById('menu-toggle') as HTMLButtonElement | null;
+  const menu = document.getElementById('mobile-menu') as HTMLElement | null;
+
+  const onScroll = () => {
+    if (!header) return;
+    const solid = window.scrollY > 12;
+    header.classList.toggle('bg-ink-950/85', solid);
+    header.classList.toggle('backdrop-blur-xl', solid);
+    header.classList.toggle('border-b', solid);
+    header.classList.toggle('border-white/5', solid);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  toggle?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+    const openIcon = toggle.querySelector('.menu-icon-open');
+    const closeIcon = toggle.querySelector('.menu-icon-close');
+    openIcon?.classList.toggle('hidden', open);
+    closeIcon?.classList.toggle('hidden', !open);
+  });
+
+  // Close mobile menu when a link is clicked
+  menu?.addEventListener('click', (e) => {
+    const target = (e.target as HTMLElement).closest('a');
+    if (target) {
+      menu.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+      toggle?.querySelector('.menu-icon-open')?.classList.remove('hidden');
+      toggle?.querySelector('.menu-icon-close')?.classList.add('hidden');
+    }
+  });
+</script>

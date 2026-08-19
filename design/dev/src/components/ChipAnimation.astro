@@ -1,0 +1,334 @@
+---
+import type { Lang } from '../data/site';
+import { getContent } from '../data/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const hero = getContent(lang).hero;
+const nodes = JSON.stringify(hero.chipNodes.map((n) => n.label));
+---
+
+<canvas
+  id="eve-chip-canvas"
+  class="h-full w-full"
+  aria-hidden="true"
+  data-nodes={nodes}
+  data-chip-label={hero.highlight}
+></canvas>
+
+<script>
+  /* =====================================================================
+   * EVE chip animation — self-drawn on <canvas>.
+   *  • twinkling stars (blinking like star light)
+   *  • a central EVE chip
+   *  • satellite nodes + animated dashed connections
+   *  • glowing data packets travelling along the connections
+   * ===================================================================== */
+  const canvas = document.getElementById('eve-chip-canvas') as HTMLCanvasElement | null;
+  if (!canvas) throw new Error('eve-chip-canvas not found');
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('canvas 2d not supported');
+
+  const labels: string[] = JSON.parse(canvas.dataset.nodes || '[]');
+  const chipLabel: string = canvas.dataset.chipLabel || 'EVE';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let W = 0;
+  let H = 0;
+  let dpr = 1;
+  let t = 0; // global animation time
+
+  const stars: { x: number; y: number; r: number; phase: number; speed: number }[] = [];
+  const nodesArr: { x: number; y: number; label: string }[] = [];
+  const packets: { from: number; to: number; progress: number; speed: number }[] = [];
+  let chip = { x: 0, y: 0, w: 0, h: 0 };
+  let linkW = 0; // weight of drawing area vs container
+
+  function rand(min: number, max: number) {
+    return min + Math.random() * (max - min);
+  }
+
+  function layout() {
+    const rect = canvas.getBoundingClientRect();
+    W = Math.max(rect.width, 1);
+    H = Math.max(rect.height, 1);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const cx = W / 2;
+    const cy = H / 2;
+    const chipSize = Math.min(W, H) * (W < 640 ? 0.26 : 0.2);
+    chip = { x: cx, y: cy, w: chipSize, h: chipSize };
+
+    // Satellite nodes on a circle around the chip
+    nodesArr.length = 0;
+    const radius = Math.min(W, H) * (W < 640 ? 0.4 : 0.42);
+    const offset = -Math.PI / 2;
+    labels.forEach((label, i) => {
+      const angle = offset + (i / labels.length) * Math.PI * 2;
+      nodesArr.push({
+        x: cx + Math.cos(angle) * radius,
+        y: cy + Math.sin(angle) * radius,
+        label,
+      });
+    });
+
+    // Twinkling stars
+    stars.length = 0;
+    const count = Math.min(260, Math.floor((W * H) / 5200));
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: rand(0.4, 1.7),
+        phase: rand(0, Math.PI * 2),
+        speed: rand(0.6, 2.2),
+      });
+    }
+
+    // Data packets travelling along the links
+    packets.length = 0;
+    for (let i = 0; i < labels.length; i++) {
+      packets.push({ from: i, to: i, progress: Math.random(), speed: rand(0.0016, 0.0036) });
+    }
+    linkW = Math.min(W, H) * 0.012;
+  }
+
+  function rr(x: number, y: number, w: number, h: number, r: number) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function drawStars(time: number) {
+    for (const s of stars) {
+      const tw = 0.18 + 0.82 * (0.5 + 0.5 * Math.sin(time * s.speed + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(190, 235, 255, ${tw.toFixed(3)})`;
+      ctx.fill();
+      // occasional bright cross-glow
+      if (s.r > 1.4) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(34, 211, 238, ${(tw * 0.12).toFixed(3)})`;
+        ctx.fill();
+      }
+    }
+  }
+
+  function drawChip(time: number) {
+    const { x, y, w, h } = chip;
+    const pin = w * 0.1;
+    const gap = w * 0.11;
+
+    // Pins on all four sides
+    ctx.lineWidth = 1.4;
+    ctx.strokeStyle = 'rgba(34,211,238,0.75)';
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const oy = y - h / 2 - pin - (h * 0.12);
+      const y1 = y - h / 2;
+      const px = x - w / 2 + gap + i * ((w - gap * 2) / 4);
+      ctx.moveTo(px, oy);
+      ctx.lineTo(px, y1);
+      // bottom
+      const yb1 = y + h / 2;
+      const yb2 = y + h / 2 + pin;
+      ctx.moveTo(px, yb1);
+      ctx.lineTo(px, yb2);
+      // left
+      const pl = x - w / 2;
+      const py = y - h / 2 + gap + i * ((h - gap * 2) / 4);
+      ctx.moveTo(pl - pin, py);
+      ctx.lineTo(pl, py);
+      // right
+      const pr = x + w / 2;
+      ctx.moveTo(pr, py);
+      ctx.lineTo(pr + pin, py);
+    }
+    ctx.stroke();
+
+    // Chip body
+    const glow = 0.5 + 0.5 * Math.sin(time * 1.4);
+    const grad = ctx.createLinearGradient(x - w / 2, y - h / 2, x + w / 2, y + h / 2);
+    grad.addColorStop(0, '#16223c');
+    grad.addColorStop(0.5, '#0e1626');
+    grad.addColorStop(1, '#101c33');
+    ctx.save();
+    ctx.shadowColor = `rgba(34,211,238,${(0.5 + glow * 0.4).toFixed(3)})`;
+    ctx.shadowBlur = 22 + glow * 22;
+    rr(x - w / 2, y - h / 2, w, h, 10);
+    ctx.fillStyle = grad;
+    ctx.fill();
+    ctx.restore();
+    ctx.strokeStyle = 'rgba(34,211,238,0.9)';
+    ctx.lineWidth = 1.6;
+    rr(x - w / 2, y - h / 2, w, h, 10);
+    ctx.stroke();
+
+    // Inner die
+    rr(x - w / 2 + w * 0.14, y - h / 2 + h * 0.14, w * 0.72, h * 0.72, 6);
+    ctx.fillStyle = 'rgba(8,12,24,0.9)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(59,130,246,0.45)';
+    ctx.stroke();
+
+    // Label
+    ctx.fillStyle = '#e8faff';
+    ctx.font = `700 ${Math.max(14, w * 0.18)}px "Space Grotesk", "Inter", sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = 'rgba(34,211,238,0.9)';
+    ctx.shadowBlur = 14 + glow * 12;
+    ctx.fillText(chipLabel, x, y + h * 0.02);
+    ctx.shadowBlur = 0;
+
+    // small detail line
+    ctx.fillStyle = 'rgba(148,163,184,0.7)';
+    ctx.font = `500 ${Math.max(8, w * 0.07)}px "Space Grotesk", "Inter", sans-serif`;
+    ctx.fillText('FT8xx / BT8xx', x, y + h * 0.22);
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+  }
+
+  function drawConnections(time: number) {
+    const { x, y, w, h } = chip;
+    // animated dash offset makes connections look like they are "moving"
+    ctx.save();
+    ctx.lineWidth = Math.max(1, linkW * 0.5);
+    ctx.setLineDash([5, 7]);
+    ctx.lineDashOffset = -time * 40;
+
+    nodesArr.forEach((n, i) => {
+      // attach the line to the chip edge facing the node
+      const ex = x + Math.sign(n.x - x) * (w / 2);
+      const ey = y + Math.sign(n.y - y) * (h / 2);
+      const grad = ctx.createLinearGradient(ex, ey, n.x, n.y);
+      grad.addColorStop(0, `rgba(34,211,238,${0.55 - i * 0.05})`);
+      grad.addColorStop(1, 'rgba(148,163,184,0.28)');
+      ctx.strokeStyle = grad;
+      ctx.beginPath();
+      ctx.moveTo(ex, ey);
+      ctx.lineTo(n.x, n.y);
+      ctx.stroke();
+    });
+    ctx.restore();
+
+    // travelling data packets (glowing dots moving along the links)
+    for (const p of packets) {
+      p.progress += p.speed;
+      if (p.progress > 1) {
+        p.progress = 0;
+        p.to = Math.floor(Math.random() * nodesArr.length);
+      }
+      const from = nodesArr[p.from] ?? { x, y: y - h / 2 };
+      const to = nodesArr[p.to] ?? { x, y };
+      const ex = x + Math.sign(from.x - x) * (w / 2);
+      const ey = y + Math.sign(from.y - y) * (h / 2);
+      const px = ex + (to.x - ex) * p.progress;
+      const py = ey + (to.y - ey) * p.progress;
+      const r = 2.2 + 1.4 * Math.sin(time * 6 + p.progress * 6);
+      const g = ctx.createRadialGradient(px, py, 0, px, py, r * 3);
+      g.addColorStop(0, 'rgba(165,243,252,0.95)');
+      g.addColorStop(0.5, 'rgba(34,211,238,0.55)');
+      g.addColorStop(1, 'rgba(34,211,238,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(px, py, r * 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawNodes() {
+    nodesArr.forEach((n, i) => {
+      const pulse = 0.6 + 0.4 * Math.sin(t * 2.4 + i * 1.1);
+      ctx.save();
+      ctx.shadowColor = 'rgba(34,211,238,0.8)';
+      ctx.shadowBlur = 12;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 5 + pulse, 0, Math.PI * 2);
+      ctx.fillStyle = '#22d3ee';
+      ctx.fill();
+      ctx.restore();
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 10 + pulse * 3, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(34,211,238,${0.35 - i * 0.03})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // label
+      ctx.fillStyle = 'rgba(226,240,255,0.92)';
+      ctx.font = `600 ${Math.max(10, 12)}px "Inter", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const ly = n.y > chip.y ? n.y + 22 : n.y - 22;
+      ctx.fillText(n.label, n.x, ly);
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+    });
+  }
+
+  function drawBackground() {
+    const g = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.75);
+    g.addColorStop(0, 'rgba(14,22,44,0.0)');
+    g.addColorStop(0.6, 'rgba(14,22,44,0.35)');
+    g.addColorStop(1, 'rgba(5,7,13,0.0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function frame(time: number) {
+    t = time / 1000;
+    ctx.clearRect(0, 0, W, H);
+    drawBackground();
+    drawStars(t);
+    drawChip(t);
+    drawConnections(t);
+    drawNodes();
+    requestAnimationFrame(frame);
+  }
+
+  function drawStatic() {
+    t = 0.6;
+    ctx.clearRect(0, 0, W, H);
+    drawBackground();
+    drawStars(1.2);
+    drawChip(0.6);
+    drawConnections(0.6);
+    drawNodes();
+  }
+
+  let ro: ResizeObserver | null = null;
+  function start() {
+    layout();
+    if (reduceMotion) {
+      drawStatic();
+      return;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  ro = new ResizeObserver(() => {
+    layout();
+  });
+  ro.observe(canvas);
+
+  start();
+  if (reduceMotion) {
+    window.addEventListener('resize', () => {
+      layout();
+      drawStatic();
+    });
+  }
+</script>

@@ -1,0 +1,52 @@
+---
+import type { Lang } from '../data/site';
+import { getContent } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const data = getContent(lang).tutorials;
+---
+
+<section id="tutorials" class="relative scroll-mt-20 py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="reveal">
+      <SectionHeading eyebrow={data.eyebrow} title={data.title} description={data.description} />
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        data.groups.map((group, gi) => (
+          <div
+            class:list={['reveal card-surface rounded-2xl p-7']}
+            style={`transition-delay:${gi * 80}ms`}
+          >
+            <h3 class="flex items-center gap-2.5 font-display text-lg font-semibold text-white">
+              <Icon name="book" size={20} class="text-eve-400" />
+              {group.title}
+            </h3>
+            <ul class="mt-5 space-y-3">
+              {
+                group.items.map((item) => (
+                  <li>
+                    <a
+                      href={item.url}
+                      class="group flex items-start gap-2 rounded-lg px-2 py-1.5 text-sm text-slate-300 transition-colors hover:bg-white/5 hover:text-eve-300"
+                    >
+                      <Icon name="doc" size={16} class="mt-0.5 shrink-0 text-eve-500/70" />
+                      <span class="break-words">{item.label}</span>
+                      <Icon name="arrow-right" size={14} class="ml-auto mt-0.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

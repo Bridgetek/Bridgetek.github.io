@@ -1,0 +1,26 @@
+ESD IDM2040-21R Tutorials
+=========================
+
+.. image:: https://brtchip.com/wp-content/uploads/2021/07/Bridgetek-logo.png
+    :target: https://brtchip.com
+    :alt: Documentation Status
+
+.. This README.rst should work on Github and is also included in the Sphinx documentation project in docs/ - therefore, README.rst uses absolute links for most things so it renders properly on GitHub
+
+This tutorial demonstrates how to run an ESD project on Knob hardware using the MCU IDM2040 and BT88x, along with instructions for integrating a rotary encoder/button encoder into the project If you are using ESD the first time, have a look at the official `ESD Tutorials <https://brtchip.com/esd/>`__.
+
+Contents
+--------
+
+.. toctree::
+
+   Home <self>
+   CreateProject
+   ProjectStructure
+   IntegrateEncoder
+
+.. include:: ../README.rst
+
+.. note::
+
+   The source code provided in this tutorial is only compatible with the internal ESD version (IDM2040-21R).

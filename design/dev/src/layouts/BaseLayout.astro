@@ -1,0 +1,62 @@
+---
+import '../styles/global.css';
+import type { Lang } from '../data/site';
+import { getContent, canonicalPath, langUrl } from '../data/site';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Reveal from '../components/Reveal.astro';
+
+interface Props {
+  lang: Lang;
+  pageTitle?: string;
+  pageDescription?: string;
+}
+const { lang, pageTitle, pageDescription } = Astro.props;
+const content = getContent(lang);
+const title = pageTitle ?? content.meta.title;
+const description = pageDescription ?? content.meta.description;
+const other: Lang = lang === 'en' ? 'ch' : 'en';
+---
+
+<!doctype html>
+<html lang={lang} dir="ltr" data-lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bridgetek EVE" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={content.meta.ogImage} />
+
+    <!-- i18n -->
+    <link rel="alternate" hreflang="en" href="/" />
+    <link rel="alternate" hreflang="ch" href="/ch/" />
+    <link rel="alternate" hreflang="x-default" href="/" />
+    <link rel="canonical" href={canonicalPath(lang)} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts: Space Grotesk (display) + Inter (body); CJK falls back to system fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen antialiased">
+    <Navbar lang={lang} />
+
+    <slot />
+
+    <Footer lang={lang} />
+    <Reveal />
+  </body>
+</html>

@@ -1,0 +1,40 @@
+---
+import type { Lang } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from './Hero.astro';
+import OverviewCards from './OverviewCards.astro';
+import StatsBar from './StatsBar.astro';
+import PlatformsStrip from './PlatformsStrip.astro';
+import ModulesSection from './ModulesSection.astro';
+import AnSection from './AnSection.astro';
+import McuSection from './McuSection.astro';
+import EveSection from './EveSection.astro';
+import EmbeddedWorld from './EmbeddedWorld.astro';
+import Tutorials from './Tutorials.astro';
+import Gallery from './Gallery.astro';
+import OpenSource from './OpenSource.astro';
+import Questions from './Questions.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<BaseLayout lang={lang}>
+  <Hero lang={lang} />
+  <main>
+    <OverviewCards lang={lang} />
+    <StatsBar lang={lang} />
+    <PlatformsStrip lang={lang} />
+    <ModulesSection lang={lang} />
+    <AnSection lang={lang} />
+    <McuSection lang={lang} />
+    <EveSection lang={lang} />
+    <EmbeddedWorld lang={lang} />
+    <Tutorials lang={lang} />
+    <Gallery lang={lang} />
+    <OpenSource lang={lang} />
+    <Questions lang={lang} />
+  </main>
+</BaseLayout>

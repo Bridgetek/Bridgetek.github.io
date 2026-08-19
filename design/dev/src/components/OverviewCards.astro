@@ -1,0 +1,44 @@
+---
+import type { Lang } from '../data/site';
+import { getContent } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const data = getContent(lang).overview;
+---
+
+<section id="overview" class="relative scroll-mt-20 py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="reveal">
+      <SectionHeading eyebrow={data.eyebrow} title={data.title} description={data.description} />
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        data.items.map((item, i) => (
+          <a
+            href={`#${item.id}`}
+            class:list={['card-surface card-hover reveal group rounded-2xl p-7']}
+            style={`transition-delay:${i * 60}ms`}
+          >
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-eve-500/20 to-azure-600/10 text-eve-300 ring-1 ring-inset ring-eve-500/30 transition-colors group-hover:text-eve-200">
+              <Icon name={item.icon} size={26} />
+            </div>
+            <h3 class="mt-5 font-display text-xl font-semibold text-white transition-colors group-hover:text-eve-300">
+              {item.title}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">{item.text}</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-eve-400">
+              Explore
+              <Icon name="arrow-right" size={16} class="transition-transform group-hover:translate-x-1" />
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

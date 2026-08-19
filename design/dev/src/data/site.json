@@ -1,0 +1,560 @@
+{
+  "en": {
+    "meta": {
+      "title": "Bridgetek EVE — Open Source Portal",
+      "description": "Bridgetek EVE open source portal: display modules, application notes, MCU (FT9xx) & EVE (FT8xx/BT8xx) repositories, Embedded World demos and tutorials.",
+      "ogImage": "/images/opensource.png"
+    },
+    "nav": {
+      "brand": { "name": "Bridgetek", "sub": "EVE" },
+      "links": [
+        { "id": "overview", "label": "Overview" },
+        { "id": "modules", "label": "Modules" },
+        { "id": "an", "label": "Application Notes" },
+        { "id": "mcu", "label": "MCU (FT9xx)" },
+        { "id": "eve", "label": "EVE" },
+        { "id": "embedded_world", "label": "Embedded World" },
+        { "id": "tutorials", "label": "Tutorials" }
+      ],
+      "community": { "label": "Community", "url": "http://www.brtcommunity.com" },
+      "language": { "label": "Language", "en": "EN", "ch": "中文" }
+    },
+    "hero": {
+      "eyebrow": "Bridgetek · Open Source Portal",
+      "title": "Bring every display to life with",
+      "highlight": "EVE",
+      "subtitle": "This website provides an overview of the open source repositories, which are created or forked by Bridgetek for customers. You may find the desired repositories easily via it.",
+      "ctaPrimary": { "label": "Explore repositories", "href": "#overview" },
+      "ctaSecondary": { "label": "Watch demos", "href": "#embedded_world" },
+      "chipNodes": [
+        { "label": "Display" },
+        { "label": "Touch" },
+        { "label": "Audio" },
+        { "label": "Video" },
+        { "label": "MCU" },
+        { "label": "Flash" }
+      ],
+      "scroll": "Scroll to explore"
+    },
+    "overview": {
+      "eyebrow": "Overview",
+      "title": "One portal for all Bridgetek open source",
+      "description": "This website provides an overview of the open source repositories, which are created or forked by Bridgetek for customers. Here you can find information of:",
+      "items": [
+        { "id": "modules", "title": "Display modules support", "text": "Reference projects for Bridgetek display modules, from IDP-1000 to IDM2040-21R.", "icon": "display" },
+        { "id": "an", "title": "Application notes", "text": "EVE specific (BRT_AN_012 / BRT_AN_025) and ESD related application note repositories.", "icon": "doc" },
+        { "id": "mcu", "title": "MCU (FT9xx) related", "text": "Toolchains, SDKs and example code for the Bridgetek FT9xx MCU family.", "icon": "chip" },
+        { "id": "eve", "title": "EVE (FT8xx / BT8xx) related", "text": "Sample apps, GUI frameworks, Arduino & Python libraries for the EVE graphics engine.", "icon": "bolt" },
+        { "id": "embedded_world", "title": "Embedded World demos", "text": "Showcase demos and videos from Embedded World 2022 through 2026.", "icon": "play" },
+        { "id": "tutorials", "title": "Tutorials", "text": "Step-by-step guides for ESD, photobooth and drawing graphs on the BT82x.", "icon": "book" }
+      ]
+    },
+    "stats": [
+      { "value": "40+", "label": "Open source repositories" },
+      { "value": "7", "label": "Display modules supported" },
+      { "value": "10", "label": "Demo videos" },
+      { "value": "3", "label": "Tutorials" }
+    ],
+    "platforms": {
+      "eyebrow": "Ecosystem",
+      "title": "Works across your favourite platforms",
+      "description": "Everything you need to drive the EVE graphics engine — from MCU firmware to desktop and Python scripting.",
+      "items": [
+        { "image": "/images/chip.png", "label": "EVE (FT8xx / BT8xx)" },
+        { "image": "/images/FT90X-1-300x200.png", "label": "FT9xx MCU" },
+        { "image": "/images/RASP_PI_PICO_H_01.png", "label": "Raspberry Pi Pico" },
+        { "image": "/images/laptop.png", "label": "Windows / Linux / macOS" },
+        { "image": "/images/c_and_cpp.png", "label": "C / C++" },
+        { "image": "/images/cpython.png", "label": "CPython / CircuitPython" }
+      ]
+    },
+    "modules": {
+      "eyebrow": "Display Modules",
+      "title": "Display modules support",
+      "description": "Reference repositories for Bridgetek display modules. Each repository contains a full project you can build and flash.",
+      "items": [
+        { "name": "IDP-3500-04A", "url": "https://github.com/Bridgetek/IDP-3500-04A" },
+        { "name": "IDP-5000-04A", "url": "https://github.com/Bridgetek/IDP-5000-04A" },
+        { "name": "IDP-4000-04A", "url": "https://github.com/Bridgetek/IDP-4000-04A" },
+        { "name": "IDP-1000-04A", "url": "https://github.com/Bridgetek/IDP-1000-04A" },
+        { "name": "IDM2040-21R", "url": "https://github.com/Bridgetek/IDM2040-21R" },
+        { "name": "IDP-7000_7010_-04A", "url": "https://github.com/Bridgetek/IDP-7000_7010_-04A" },
+        { "name": "IDP-3510-04A", "url": "https://github.com/Bridgetek/IDP-3510-04A" }
+      ]
+    },
+    "an": {
+      "eyebrow": "Application Notes",
+      "title": "Application note related repositories",
+      "description": "Example code and porting guides that accompany Bridgetek application notes.",
+      "groups": [
+        {
+          "title": "EVE specific — BRT_AN_012",
+          "items": [
+            { "name": "EVE-MCU-BRT_AN_012-Example-Pico", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_012-Example-Pico" }
+          ]
+        },
+        {
+          "title": "EVE specific — BRT_AN_025",
+          "items": [
+            { "name": "EVE-MCU-BRT_AN_025", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-common", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-common" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-PIC18F46K22", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-PIC18F46K22" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-FT900", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-FT900" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-Beaglebone", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-Beaglebone" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-ESP32", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-ESP32" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-libMPSSE", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-libMPSSE" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-Pico", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-Pico" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-RPi", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-RPi" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-MSP430", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-MSP430" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-STM32", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-STM32" }
+          ]
+        },
+        {
+          "title": "ESD related",
+          "items": [
+            { "name": "BRT_AN_073-ESD-exported-Project-Porting-Guide", "url": "https://github.com/Bridgetek/BRT_AN_073-ESD-exported-Project-Porting-Guide" }
+          ]
+        }
+      ]
+    },
+    "mcu": {
+      "eyebrow": "MCU",
+      "title": "MCU (FT9xx) related repositories",
+      "description": "Toolchains, libraries and example code to get started with the Bridgetek FT9xx MCU family.",
+      "items": [
+        { "desc": "How to use Visual Studio Code to compile and debug code for FT9xx", "name": "ft9xx-vscode", "url": "https://github.com/Bridgetek/ft9xx-vscode" },
+        { "desc": "Hardware library and examples for FT9xx", "name": "ft9xx-sdk", "url": "https://github.com/Bridgetek/ft9xx-sdk" },
+        { "desc": "Example code for Bridgetek FT9xx USB device emulation", "name": "ft9xx-usbd-examples", "url": "https://github.com/Bridgetek/ft9xx-usbd-examples" },
+        { "desc": "A Windows application to view and analyse information from the linker generated Map file", "name": "MapViewer", "url": "https://github.com/Bridgetek/MapViewer" }
+      ]
+    },
+    "eve": {
+      "eyebrow": "EVE",
+      "title": "EVE (FT8xx / BT8xx) related repositories",
+      "description": "The EVE graphics engine brings display, audio and touch together with a single command coprocessor. Explore sample apps, GUI frameworks and language bindings.",
+      "groups": [
+        {
+          "title": "Official samples and examples",
+          "items": [
+            { "name": "EveApps", "desc": "Official sample and demo applications", "url": "https://github.com/Bridgetek/EveApps" },
+            { "name": "pico-brteve", "desc": "C, CPython and CircuitPython for Pico", "url": "https://github.com/Bridgetek/pico-brteve" },
+            { "name": "Eve-MCU-Dev", "desc": "C library for embedded designs", "url": "https://github.com/Bridgetek/Eve-MCU-Dev" },
+            { "name": "py-bteve", "desc": "CircuitPython built-in _EVE class", "url": "https://github.com/jamesbowman/py-bteve" }
+          ]
+        },
+        {
+          "title": "GUI Framework",
+          "items": [
+            { "name": "nuklear_eve", "desc": "Immediate-mode GUI on EVE", "url": "https://github.com/Bridgetek/nuklear_eve" },
+            { "name": "LVGL-Eve", "desc": "LVGL ported to EVE", "url": "https://github.com/Bridgetek/lvgl-EVE" }
+          ]
+        },
+        {
+          "title": "Arduino library",
+          "items": [
+            { "name": "RP2040-BrtEve", "desc": "Arduino library for RP2040 and EVE", "url": "https://github.com/Bridgetek/RP2040-BrtEve" }
+          ]
+        },
+        {
+          "title": "Telemetrix",
+          "items": [
+            { "name": "telemetrix-rpi-pico", "desc": "Client running on a PC (Windows / Linux / Mac)", "url": "https://github.com/Bridgetek/telemetrix-rpi-pico" },
+            { "name": "Telemetrix4RpiPico", "desc": "Server running on an RP2040 MCU connected to EVE", "url": "https://github.com/Bridgetek/Telemetrix4RpiPico" }
+          ]
+        },
+        {
+          "title": "BT82x",
+          "items": [
+            { "name": "EveApps-BT82X", "desc": "C/C++ sample applications for BT82x", "url": "https://github.com/Bridgetek/EveApps-BT82X" },
+            { "name": "python-bt82x-dev", "desc": "Python development for BT82x", "url": "https://github.com/Bridgetek/python-bt82x-dev" }
+          ]
+        }
+      ]
+    },
+    "embedded_world": {
+      "eyebrow": "Embedded World",
+      "title": "Embedded World demos",
+      "description": "Watch Bridgetek demos shown at Embedded World, from 2022 all the way to 2026.",
+      "years": [
+        { "name": "EW 2022", "url": "https://github.com/Bridgetek/IDM2040-7A-EW2022" },
+        { "name": "EW 2023", "url": "https://github.com/Bridgetek/EW2023" },
+        { "name": "EW 2024", "url": "https://github.com/Bridgetek/EW2024" },
+        { "name": "EW 2025", "url": "https://github.com/Bridgetek/EW2025" },
+        { "name": "EW 2026", "url": "https://github.com/Bridgetek/EW2026" }
+      ],
+      "videos": [
+        { "id": "FKp0onI1zb4", "title": "Bridgetek BT817 Charging Point Demo — EW2022" },
+        { "id": "XOd2h3IdD0Y", "title": "Bridgetek PanL Desk Manager Demo — EW2022" },
+        { "id": "fC9cXK_fRpk", "title": "Bridgetek BT817 Automotive Demo — EW2022" },
+        { "id": "TDYs4Gp3u-U", "title": "Bridgetek Weather Station Demo — EW2022" },
+        { "id": "MhGCBDxGjCE", "title": "Bridgetek PanL Smart Living Demo — EW2022" },
+        { "id": "SDYzi6eugOI", "title": "Bridgetek IDM2040-7A LDSBus Demo — EW2022" },
+        { "id": "KD6EyHm1dYE", "title": "Bridgetek IoTPortal, Sensors and Actuators Demo — EW2022" },
+        { "id": "u4mMFuEfTN4", "title": "EW2023 Bridgetek Video Demo" },
+        { "id": "em_PzkBLW54", "title": "EW2025 Bridgetek Photobooth Video" },
+        { "id": "-w9iqicyvJs", "title": "Discover Bridgetek BT820B — high-resolution graphics, touch and live video" }
+      ]
+    },
+    "tutorials": {
+      "eyebrow": "Tutorials",
+      "title": "Tutorials",
+      "description": "Step-by-step guides and project walkthroughs to get you building with EVE faster.",
+      "groups": [
+        {
+          "title": "ESD tutorials",
+          "items": [
+            { "label": "ESD for IDM2040-21R tutorials", "url": "/tutorials/esd_idm2040_21r/index.html" }
+          ]
+        },
+        {
+          "title": "Embedded World",
+          "items": [
+            { "label": "Embedded World 2024 Photobooth", "url": "/tutorials/ew2024_photobooth/html/index.html" }
+          ]
+        },
+        {
+          "title": "Drawing Graphs on the BT82x",
+          "items": [
+            { "label": "Tutorial for drawing graphs on the BT82x", "url": "/tutorials/bt82x_graphs/docs/_build/html/index.html" }
+          ]
+        }
+      ]
+    },
+    "gallery": {
+      "eyebrow": "Demo Gallery",
+      "title": "Samples & demos in action",
+      "description": "Image viewer, media player, audio playback, meta balls, graphs, refrigerators … and much more waiting for you to explore.",
+      "items": [
+        { "image": "/demo_images/video.png", "title": "Media Player (SampleApp)" },
+        { "image": "/demo_images/meter.png", "title": "Image Viewer (SampleApp)" },
+        { "image": "/demo_images/menu.png", "title": "Demo Main Menu" },
+        { "image": "/demo_images/lift.png", "title": "Demo Lift" },
+        { "image": "/demo_images/keyboard.png", "title": "Demo Keyboard Unicode" },
+        { "image": "/demo_images/image.png", "title": "Demo Image Viewer" },
+        { "image": "/demo_images/graph.png", "title": "Demo Graph" },
+        { "image": "/demo_images/button.png", "title": "Demo Meter" }
+      ]
+    },
+    "opensource": {
+      "title": "Open source by design",
+      "text": "You are freely allowed to modify and distribute the source code.",
+      "image": "/images/opensource.png"
+    },
+    "questions": {
+      "title": "Any questions?",
+      "description": "Ask questions and start a discussion in our forum, read the official documentation, or reach out to our support team.",
+      "links": [
+        { "label": "Community forum — www.brtcommunity.com", "url": "http://www.brtcommunity.com" },
+        { "label": "Official website — brtchip.com", "url": "http://www.brtchip.com" },
+        { "label": "Follow us on Twitter for important announcements", "url": "http://www.twitter.com/bridgetek1" }
+      ],
+      "emailLabel": "E-Mail (Support):",
+      "email": "support.emea@brtchip.com"
+    },
+    "footer": {
+      "company": "Bridgetek Pte Ltd",
+      "aboutTitle": "About",
+      "aboutText": "Bridgetek EVE is the open source portal of Bridgetek — a leading fabless semiconductor company providing advanced display, touch and MCU solutions.",
+      "contactTitle": "Contact",
+      "address": "1 Tai Seng Avenue, Tower A #03-05, Singapore 536464",
+      "tel": "(+65) 6547 4827",
+      "website": "www.brtchip.com",
+      "linksTitle": "Explore",
+      "links": [
+        { "label": "Display modules", "url": "#modules" },
+        { "label": "Application notes", "url": "#an" },
+        { "label": "MCU (FT9xx)", "url": "#mcu" },
+        { "label": "EVE", "url": "#eve" },
+        { "label": "Embedded World", "url": "#embedded_world" },
+        { "label": "Tutorials", "url": "#tutorials" },
+        { "label": "Community", "url": "http://www.brtcommunity.com" }
+      ],
+      "social": {
+        "facebook": "https://www.facebook.com/Bridgetek1",
+        "twitter": "http://www.twitter.com/bridgetek1",
+        "youtube": "https://www.youtube.com/c/bridgetek",
+        "linkedin": "https://www.linkedin.com/company/brtchip"
+      },
+      "copyright": "Bridgetek Pte Ltd. All rights reserved."
+    }
+  },
+  "ch": {
+    "meta": {
+      "title": "Bridgetek EVE — 开源门户",
+      "description": "Bridgetek EVE 开源门户：显示模块、应用笔记、MCU（FT9xx）与 EVE（FT8xx/BT8xx）代码仓库、Embedded World 演示与教程。",
+      "ogImage": "/images/opensource.png"
+    },
+    "nav": {
+      "brand": { "name": "Bridgetek", "sub": "EVE" },
+      "links": [
+        { "id": "overview", "label": "概览" },
+        { "id": "modules", "label": "显示模块" },
+        { "id": "an", "label": "应用笔记" },
+        { "id": "mcu", "label": "MCU（FT9xx）" },
+        { "id": "eve", "label": "EVE" },
+        { "id": "embedded_world", "label": "Embedded World" },
+        { "id": "tutorials", "label": "教程" }
+      ],
+      "community": { "label": "社区", "url": "http://www.brtcommunity.com" },
+      "language": { "label": "语言", "en": "EN", "ch": "中文" }
+    },
+    "hero": {
+      "eyebrow": "Bridgetek · 开源门户",
+      "title": "让每一块显示屏因",
+      "highlight": "EVE",
+      "subtitle": "本网站概览了由 Bridgetek 创建或分叉的开源代码仓库，方便您快速找到所需的开源资源。",
+      "ctaPrimary": { "label": "浏览代码仓库", "href": "#overview" },
+      "ctaSecondary": { "label": "观看演示", "href": "#embedded_world" },
+      "chipNodes": [
+        { "label": "显示" },
+        { "label": "触控" },
+        { "label": "音频" },
+        { "label": "视频" },
+        { "label": "MCU" },
+        { "label": "Flash" }
+      ],
+      "scroll": "向下滚动探索"
+    },
+    "overview": {
+      "eyebrow": "概览",
+      "title": "Bridgetek 开源资源一站式门户",
+      "description": "本网站概览了由 Bridgetek 创建或分叉的开源代码仓库。您可以在这里找到以下相关信息：",
+      "items": [
+        { "id": "modules", "title": "显示模块支持", "text": "Bridgetek 显示模块的参考工程，从 IDP-1000 到 IDM2040-21R。", "icon": "display" },
+        { "id": "an", "title": "应用笔记", "text": "EVE 专属（BRT_AN_012 / BRT_AN_025）及 ESD 相关的应用笔记代码仓库。", "icon": "doc" },
+        { "id": "mcu", "title": "MCU（FT9xx）相关", "text": "Bridgetek FT9xx MCU 系列的工具链、SDK 与示例代码。", "icon": "chip" },
+        { "id": "eve", "title": "EVE（FT8xx / BT8xx）相关", "text": "面向 EVE 图形引擎的示例应用、GUI 框架、Arduino 与 Python 库。", "icon": "bolt" },
+        { "id": "embedded_world", "title": "Embedded World 演示", "text": "Embedded World 2022 至 2026 年的精彩演示与视频。", "icon": "play" },
+        { "id": "tutorials", "title": "教程", "text": "ESD、photobooth 及在 BT82x 上绘制图形的分步指南。", "icon": "book" }
+      ]
+    },
+    "stats": [
+      { "value": "40+", "label": "开源代码仓库" },
+      { "value": "7", "label": "支持的显示模块" },
+      { "value": "10", "label": "演示视频" },
+      { "value": "3", "label": "教程" }
+    ],
+    "platforms": {
+      "eyebrow": "生态系统",
+      "title": "兼容您常用的平台",
+      "description": "驱动 EVE 图形引擎所需的一切——从 MCU 固件到桌面应用与 Python 脚本。",
+      "items": [
+        { "image": "/images/chip.png", "label": "EVE（FT8xx / BT8xx）" },
+        { "image": "/images/FT90X-1-300x200.png", "label": "FT9xx MCU" },
+        { "image": "/images/RASP_PI_PICO_H_01.png", "label": "Raspberry Pi Pico" },
+        { "image": "/images/laptop.png", "label": "Windows / Linux / macOS" },
+        { "image": "/images/c_and_cpp.png", "label": "C / C++" },
+        { "image": "/images/cpython.png", "label": "CPython / CircuitPython" }
+      ]
+    },
+    "modules": {
+      "eyebrow": "显示模块",
+      "title": "显示模块支持",
+      "description": "Bridgetek 显示模块的参考代码仓库，每个仓库都包含可直接编译与烧录的完整工程。",
+      "items": [
+        { "name": "IDP-3500-04A", "url": "https://github.com/Bridgetek/IDP-3500-04A" },
+        { "name": "IDP-5000-04A", "url": "https://github.com/Bridgetek/IDP-5000-04A" },
+        { "name": "IDP-4000-04A", "url": "https://github.com/Bridgetek/IDP-4000-04A" },
+        { "name": "IDP-1000-04A", "url": "https://github.com/Bridgetek/IDP-1000-04A" },
+        { "name": "IDM2040-21R", "url": "https://github.com/Bridgetek/IDM2040-21R" },
+        { "name": "IDP-7000_7010_-04A", "url": "https://github.com/Bridgetek/IDP-7000_7010_-04A" },
+        { "name": "IDP-3510-04A", "url": "https://github.com/Bridgetek/IDP-3510-04A" }
+      ]
+    },
+    "an": {
+      "eyebrow": "应用笔记",
+      "title": "应用笔记相关代码仓库",
+      "description": "随 Bridgetek 应用笔记发布的示例代码与移植指南。",
+      "groups": [
+        {
+          "title": "EVE 专属 — BRT_AN_012",
+          "items": [
+            { "name": "EVE-MCU-BRT_AN_012-Example-Pico", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_012-Example-Pico" }
+          ]
+        },
+        {
+          "title": "EVE 专属 — BRT_AN_025",
+          "items": [
+            { "name": "EVE-MCU-BRT_AN_025", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-common", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-common" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-PIC18F46K22", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-PIC18F46K22" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-FT900", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-FT900" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-Beaglebone", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-Beaglebone" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-ESP32", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-ESP32" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-libMPSSE", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-libMPSSE" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-Pico", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-Pico" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-RPi", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-RPi" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-MSP430", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-MSP430" },
+            { "name": "EVE-MCU-BRT_AN_025-Example-STM32", "url": "https://github.com/Bridgetek/EVE-MCU-BRT_AN_025-Example-STM32" }
+          ]
+        },
+        {
+          "title": "ESD 相关",
+          "items": [
+            { "name": "BRT_AN_073-ESD-exported-Project-Porting-Guide", "url": "https://github.com/Bridgetek/BRT_AN_073-ESD-exported-Project-Porting-Guide" }
+          ]
+        }
+      ]
+    },
+    "mcu": {
+      "eyebrow": "MCU",
+      "title": "MCU（FT9xx）相关代码仓库",
+      "description": "帮助您快速上手 Bridgetek FT9xx MCU 系列的工具链、库与示例代码。",
+      "items": [
+        { "desc": "如何使用 Visual Studio Code 编译与调试 FT9xx 代码", "name": "ft9xx-vscode", "url": "https://github.com/Bridgetek/ft9xx-vscode" },
+        { "desc": "FT9xx 硬件库与示例", "name": "ft9xx-sdk", "url": "https://github.com/Bridgetek/ft9xx-sdk" },
+        { "desc": "Bridgetek FT9xx USB 设备仿真示例代码", "name": "ft9xx-usbd-examples", "url": "https://github.com/Bridgetek/ft9xx-usbd-examples" },
+        { "desc": "用于查看和分析链接器生成的 Map 文件的 Windows 应用程序", "name": "MapViewer", "url": "https://github.com/Bridgetek/MapViewer" }
+      ]
+    },
+    "eve": {
+      "eyebrow": "EVE",
+      "title": "EVE（FT8xx / BT8xx）相关代码仓库",
+      "description": "EVE 图形引擎通过单一命令协处理器将显示、音频与触控融为一体。探索示例应用、GUI 框架与多种语言绑定。",
+      "groups": [
+        {
+          "title": "官方示例与应用",
+          "items": [
+            { "name": "EveApps", "desc": "官方示例与演示应用", "url": "https://github.com/Bridgetek/EveApps" },
+            { "name": "pico-brteve", "desc": "适用于 Pico 的 C、CPython 与 CircuitPython", "url": "https://github.com/Bridgetek/pico-brteve" },
+            { "name": "Eve-MCU-Dev", "desc": "面向嵌入式设计的 C 库", "url": "https://github.com/Bridgetek/Eve-MCU-Dev" },
+            { "name": "py-bteve", "desc": "CircuitPython 内置 _EVE 类", "url": "https://github.com/jamesbowman/py-bteve" }
+          ]
+        },
+        {
+          "title": "GUI 框架",
+          "items": [
+            { "name": "nuklear_eve", "desc": "EVE 上的即时模式 GUI", "url": "https://github.com/Bridgetek/nuklear_eve" },
+            { "name": "LVGL-Eve", "desc": "移植到 EVE 的 LVGL", "url": "https://github.com/Bridgetek/lvgl-EVE" }
+          ]
+        },
+        {
+          "title": "Arduino 库",
+          "items": [
+            { "name": "RP2040-BrtEve", "desc": "面向 RP2040 与 EVE 的 Arduino 库", "url": "https://github.com/Bridgetek/RP2040-BrtEve" }
+          ]
+        },
+        {
+          "title": "Telemetrix",
+          "items": [
+            { "name": "telemetrix-rpi-pico", "desc": "运行在 PC（Windows / Linux / Mac）上的客户端", "url": "https://github.com/Bridgetek/telemetrix-rpi-pico" },
+            { "name": "Telemetrix4RpiPico", "desc": "运行在连接 EVE 的 RP2040 MCU 上的服务器", "url": "https://github.com/Bridgetek/Telemetrix4RpiPico" }
+          ]
+        },
+        {
+          "title": "BT82x",
+          "items": [
+            { "name": "EveApps-BT82X", "desc": "面向 BT82x 的 C/C++ 示例应用", "url": "https://github.com/Bridgetek/EveApps-BT82X" },
+            { "name": "python-bt82x-dev", "desc": "面向 BT82x 的 Python 开发", "url": "https://github.com/Bridgetek/python-bt82x-dev" }
+          ]
+        }
+      ]
+    },
+    "embedded_world": {
+      "eyebrow": "Embedded World",
+      "title": "Embedded World 演示",
+      "description": "观看 Bridgetek 在 Embedded World 展会（2022 至 2026 年）上展示的精彩演示。",
+      "years": [
+        { "name": "EW 2022", "url": "https://github.com/Bridgetek/IDM2040-7A-EW2022" },
+        { "name": "EW 2023", "url": "https://github.com/Bridgetek/EW2023" },
+        { "name": "EW 2024", "url": "https://github.com/Bridgetek/EW2024" },
+        { "name": "EW 2025", "url": "https://github.com/Bridgetek/EW2025" },
+        { "name": "EW 2026", "url": "https://github.com/Bridgetek/EW2026" }
+      ],
+      "videos": [
+        { "id": "FKp0onI1zb4", "title": "Bridgetek BT817 充电桩演示 — EW2022" },
+        { "id": "XOd2h3IdD0Y", "title": "Bridgetek PanL 桌面管理器演示 — EW2022" },
+        { "id": "fC9cXK_fRpk", "title": "Bridgetek BT817 汽车电子演示 — EW2022" },
+        { "id": "TDYs4Gp3u-U", "title": "Bridgetek 气象站演示 — EW2022" },
+        { "id": "MhGCBDxGjCE", "title": "Bridgetek PanL 智能家居演示 — EW2022" },
+        { "id": "SDYzi6eugOI", "title": "Bridgetek IDM2040-7A LDSBus 演示 — EW2022" },
+        { "id": "KD6EyHm1dYE", "title": "Bridgetek IoTPortal、传感器与执行器演示 — EW2022" },
+        { "id": "u4mMFuEfTN4", "title": "EW2023 Bridgetek 视频演示" },
+        { "id": "em_PzkBLW54", "title": "EW2025 Bridgetek 拍照机视频" },
+        { "id": "-w9iqicyvJs", "title": "探索 Bridgetek BT820B — 高分辨率图形、触控与实时视频" }
+      ]
+    },
+    "tutorials": {
+      "eyebrow": "教程",
+      "title": "教程",
+      "description": "分步指南与工程实战，帮助您更快上手 EVE 开发。",
+      "groups": [
+        {
+          "title": "ESD 教程",
+          "items": [
+            { "label": "IDM2040-21R 的 ESD 教程", "url": "/tutorials/esd_idm2040_21r/index.html" }
+          ]
+        },
+        {
+          "title": "Embedded World",
+          "items": [
+            { "label": "Embedded World 2024 拍照机教程", "url": "/tutorials/ew2024_photobooth/html/index.html" }
+          ]
+        },
+        {
+          "title": "在 BT82x 上绘制图形",
+          "items": [
+            { "label": "在 BT82x 上绘制图形的教程", "url": "/tutorials/bt82x_graphs/docs/_build/html/index.html" }
+          ]
+        }
+      ]
+    },
+    "gallery": {
+      "eyebrow": "演示画廊",
+      "title": "示例与演示实况",
+      "description": "图像查看器、媒体播放器、音频播放、Meta Balls、图形、冰箱等更多示例等你探索。",
+      "items": [
+        { "image": "/demo_images/video.png", "title": "媒体播放器（SampleApp）" },
+        { "image": "/demo_images/meter.png", "title": "图像查看器（SampleApp）" },
+        { "image": "/demo_images/menu.png", "title": "演示主菜单" },
+        { "image": "/demo_images/lift.png", "title": "电梯演示" },
+        { "image": "/demo_images/keyboard.png", "title": "Unicode 键盘演示" },
+        { "image": "/demo_images/image.png", "title": "图像查看器演示" },
+        { "image": "/demo_images/graph.png", "title": "图形演示" },
+        { "image": "/demo_images/button.png", "title": "仪表演示" }
+      ]
+    },
+    "opensource": {
+      "title": "天生开源",
+      "text": "您可以自由修改和分发这些源代码。",
+      "image": "/images/opensource.png"
+    },
+    "questions": {
+      "title": "有任何问题吗？",
+      "description": "在我们的论坛提问并参与讨论、查阅官方文档，或联系我们的技术支持团队。",
+      "links": [
+        { "label": "社区论坛 — www.brtcommunity.com", "url": "http://www.brtcommunity.com" },
+        { "label": "官方网站 — brtchip.com", "url": "http://www.brtchip.com" },
+        { "label": "在 Twitter 上关注我们，获取重要公告", "url": "http://www.twitter.com/bridgetek1" }
+      ],
+      "emailLabel": "电子邮件（支持）：",
+      "email": "support.emea@brtchip.com"
+    },
+    "footer": {
+      "company": "Bridgetek Pte Ltd",
+      "aboutTitle": "关于我们",
+      "aboutText": "Bridgetek EVE 是 Bridgetek 的开源门户。Bridgetek 是一家领先的无晶圆厂半导体公司，提供先进的显示、触控与 MCU 解决方案。",
+      "contactTitle": "联系方式",
+      "address": "1 Tai Seng Avenue, Tower A #03-05, Singapore 536464",
+      "tel": "(+65) 6547 4827",
+      "website": "www.brtchip.com",
+      "linksTitle": "快速浏览",
+      "links": [
+        { "label": "显示模块", "url": "#modules" },
+        { "label": "应用笔记", "url": "#an" },
+        { "label": "MCU（FT9xx）", "url": "#mcu" },
+        { "label": "EVE", "url": "#eve" },
+        { "label": "Embedded World", "url": "#embedded_world" },
+        { "label": "教程", "url": "#tutorials" },
+        { "label": "社区", "url": "http://www.brtcommunity.com" }
+      ],
+      "social": {
+        "facebook": "https://www.facebook.com/Bridgetek1",
+        "twitter": "http://www.twitter.com/bridgetek1",
+        "youtube": "https://www.youtube.com/c/bridgetek",
+        "linkedin": "https://www.linkedin.com/company/brtchip"
+      },
+      "copyright": "Bridgetek Pte Ltd. 保留所有权利。"
+    }
+  }
+}

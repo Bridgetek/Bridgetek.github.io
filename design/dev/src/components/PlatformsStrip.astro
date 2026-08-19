@@ -1,0 +1,37 @@
+---
+import type { Lang } from '../data/site';
+import { getContent } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const data = getContent(lang).platforms;
+const items = [...data.items, ...data.items]; // duplicate for seamless marquee
+---
+
+<section class="relative py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="reveal">
+      <SectionHeading eyebrow={data.eyebrow} title={data.title} description={data.description} />
+    </div>
+  </div>
+
+  <!-- marquee -->
+  <div class="relative mt-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+    <div class="animate-marquee flex w-max gap-5 pr-5">
+      {
+        items.map((item, i) => (
+          <div
+            key={i}
+            class="card-surface card-hover flex w-48 shrink-0 flex-col items-center justify-center gap-4 rounded-2xl px-5 py-8 text-center"
+          >
+            <img src={item.image} alt={item.label} loading="lazy" class="h-16 w-16 rounded-xl object-contain" width="64" height="64" />
+            <span class="text-sm font-medium text-slate-200">{item.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

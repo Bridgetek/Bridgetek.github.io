@@ -1,0 +1,53 @@
+---
+import type { Lang } from '../data/site';
+import { getContent } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const data = getContent(lang).questions;
+---
+
+<section class="relative border-t border-white/5 py-20 sm:py-24">
+  <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+    <div class="reveal">
+      <h2 class="font-display text-3xl font-bold text-white sm:text-4xl">{data.title}</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+        {data.description}
+      </p>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {
+        data.links.map((link, i) => (
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={['reveal card-surface card-hover group flex items-center justify-between gap-3 rounded-2xl px-6 py-5 text-left']}
+            style={`transition-delay:${i * 60}ms`}
+          >
+            <span class="text-sm font-medium text-slate-200 transition-colors group-hover:text-eve-300">
+              {link.label}
+            </span>
+            <Icon name="external" size={16} class="shrink-0 text-slate-500 transition-colors group-hover:text-eve-400" />
+          </a>
+        ))
+      }
+      <a
+        href={`mailto:${data.email}`}
+        class:list={['reveal card-surface card-hover group flex items-center justify-between gap-3 rounded-2xl px-6 py-5 text-left', data.links.length % 2 === 0 ? 'sm:col-span-2 sm:mx-auto sm:w-full sm:max-w-xl' : '']}
+        style={`transition-delay:${data.links.length * 60}ms`}
+      >
+        <span class="flex items-center gap-3 text-sm text-slate-200">
+          <Icon name="mail" size={18} class="shrink-0 text-eve-400" />
+          <span class="text-slate-500">{data.emailLabel}</span>
+          <span class="font-medium text-eve-300">{data.email}</span>
+        </span>
+        <Icon name="external" size={16} class="shrink-0 text-slate-500 transition-colors group-hover:text-eve-400" />
+      </a>
+    </div>
+  </div>
+</section>

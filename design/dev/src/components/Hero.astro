@@ -1,0 +1,89 @@
+---
+import type { Lang } from '../data/site';
+import { getContent } from '../data/site';
+import ChipAnimation from './ChipAnimation.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const hero = getContent(lang).hero;
+---
+
+<section id="top" class="relative flex min-h-screen items-center overflow-hidden">
+  <!-- background layers -->
+  <div class="bg-grid absolute inset-0 opacity-60"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(14,165,233,0.16),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(237,28,36,0.10),transparent_50%)]"></div>
+  <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-ink-950 to-transparent"></div>
+
+  <div class="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-2 lg:gap-6 lg:px-8 lg:pt-24">
+    <!-- Text -->
+    <div class="reveal is-visible order-2 text-center lg:order-1 lg:text-left">
+      <span class="inline-flex items-center gap-2 rounded-full border border-eve-500/30 bg-eve-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-eve-300">
+        <Icon name="sparkles" size={15} />
+        {hero.eyebrow}
+      </span>
+
+      <h1 class="mt-6 font-display text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl xl:text-6xl">
+        {hero.title}
+        <span class="text-gradient block">{hero.highlight}</span>
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg lg:mx-0">
+        {hero.subtitle}
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+        <a
+          href={hero.ctaPrimary.href}
+          class="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-eve-500 to-azure-500 px-7 py-3.5 text-sm font-semibold text-ink-950 shadow-glow transition-all hover:shadow-glow hover:brightness-110"
+        >
+          {hero.ctaPrimary.label}
+          <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-1" />
+        </a>
+        <a
+          href={hero.ctaSecondary.href}
+          class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-3.5 text-sm font-semibold text-slate-100 backdrop-blur transition-colors hover:border-eve-400/50 hover:text-eve-300"
+        >
+          <Icon name="play" size={18} />
+          {hero.ctaSecondary.label}
+        </a>
+      </div>
+
+      <!-- mini badges -->
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-500 lg:justify-start">
+        <span class="inline-flex items-center gap-2">
+          <Icon name="chip" size={15} class="text-eve-400" /> FT8xx / BT8xx
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <Icon name="terminal" size={15} class="text-eve-400" /> C / C++ / Python
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <Icon name="github" size={15} class="text-eve-400" /> GitHub
+        </span>
+      </div>
+    </div>
+
+    <!-- Animation -->
+    <div class="order-1 h-[46vh] min-h-[320px] lg:order-2 lg:h-[70vh]">
+      <div class="glow-ring relative h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-ink-900/40">
+        <div class="bg-dots absolute inset-0 opacity-40"></div>
+        <div class="absolute inset-0">
+          <ChipAnimation lang={lang} />
+        </div>
+        <div class="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/5"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- scroll hint -->
+  <a
+    href="#overview"
+    class="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-1 text-xs uppercase tracking-[0.25em] text-slate-500 transition-colors hover:text-eve-300 md:flex"
+    aria-label={hero.scroll}
+  >
+    {hero.scroll}
+    <Icon name="chevron-down" size={18} class="animate-bounce" />
+  </a>
+</section>

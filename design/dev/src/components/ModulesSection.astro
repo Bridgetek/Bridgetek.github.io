@@ -1,0 +1,46 @@
+---
+import type { Lang } from '../data/site';
+import { getContent } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const data = getContent(lang).modules;
+---
+
+<section id="modules" class="relative scroll-mt-20 border-t border-white/5 bg-ink-900/40 py-20 sm:py-28">
+  <div class="bg-grid absolute inset-0 opacity-30"></div>
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="reveal">
+      <SectionHeading eyebrow={data.eyebrow} title={data.title} description={data.description} />
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {
+        data.items.map((item, i) => (
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={['card-surface card-hover reveal group flex items-center justify-between gap-3 rounded-2xl p-5']}
+            style={`transition-delay:${i * 50}ms`}
+          >
+            <div class="min-w-0">
+              <div class="truncate font-display text-base font-semibold text-white transition-colors group-hover:text-eve-300">
+                {item.name}
+              </div>
+              <div class="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
+                <Icon name="github" size={13} />
+                <span class="truncate">github.com/Bridgetek/{item.name}</span>
+              </div>
+            </div>
+            <Icon name="external" size={16} class="shrink-0 text-slate-500 transition-colors group-hover:text-eve-400" />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

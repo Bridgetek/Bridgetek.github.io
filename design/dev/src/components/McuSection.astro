@@ -1,0 +1,47 @@
+---
+import type { Lang } from '../data/site';
+import { getContent } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const data = getContent(lang).mcu;
+---
+
+<section id="mcu" class="relative scroll-mt-20 border-t border-white/5 bg-ink-900/40 py-20 sm:py-28">
+  <div class="bg-dots absolute inset-0 opacity-30"></div>
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="reveal">
+      <SectionHeading eyebrow={data.eyebrow} title={data.title} description={data.description} />
+    </div>
+
+    <div class="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-5 sm:grid-cols-2">
+      {
+        data.items.map((item, i) => (
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={['card-surface card-hover reveal group rounded-2xl p-6']}
+            style={`transition-delay:${i * 60}ms`}
+          >
+            <div class="flex items-start gap-4">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-flare-500/15 to-azure-600/10 text-flare-400 ring-1 ring-inset ring-flare-500/25">
+                <Icon name="chip" size={24} />
+              </div>
+              <div class="min-w-0">
+                <div class="font-display text-base font-semibold text-white transition-colors group-hover:text-eve-300">
+                  {item.name}
+                </div>
+                <p class="mt-1.5 text-sm leading-relaxed text-slate-400">{item.desc}</p>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
