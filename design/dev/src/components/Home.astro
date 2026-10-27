@@ -22,8 +22,8 @@ const { lang } = Astro.props;
 ---
 
 <BaseLayout lang={lang}>
-  <Hero lang={lang} />
-  <main>
+  <main id="main-content" tabindex="-1">
+    <Hero lang={lang} />
     <OverviewCards lang={lang} />
     <StatsBar lang={lang} />
     <PlatformsStrip lang={lang} />

@@ -23,7 +23,7 @@
       "eyebrow": "Bridgetek · Open Source Portal",
       "title": "Bring every display to life with",
       "highlight": "EVE",
-      "subtitle": "This website provides an overview of the open source repositories, which are created or forked by Bridgetek for customers. You may find the desired repositories easily via it.",
+      "subtitle": "Explore open source repositories created or forked by Bridgetek, and find the projects, examples and tools you need.",
       "ctaPrimary": { "label": "Explore repositories", "href": "#overview" },
       "ctaSecondary": { "label": "Watch demos", "href": "#embedded_world" },
       "chipNodes": [
@@ -39,7 +39,8 @@
     "overview": {
       "eyebrow": "Overview",
       "title": "One portal for all Bridgetek open source",
-      "description": "This website provides an overview of the open source repositories, which are created or forked by Bridgetek for customers. Here you can find information of:",
+      "description": "Find open source repositories created or forked by Bridgetek, organised by product and application.",
+      "explore": "Explore",
       "items": [
         { "id": "modules", "title": "Display modules support", "text": "Reference projects for Bridgetek display modules, from IDP-1000 to IDM2040-21R.", "icon": "display" },
         { "id": "an", "title": "Application notes", "text": "EVE specific (BRT_AN_012 / BRT_AN_025) and ESD related application note repositories.", "icon": "doc" },
@@ -226,13 +227,13 @@
       "description": "Image viewer, media player, audio playback, meta balls, graphs, refrigerators … and much more waiting for you to explore.",
       "items": [
         { "image": "/demo_images/video.png", "title": "Media Player (SampleApp)" },
-        { "image": "/demo_images/meter.png", "title": "Image Viewer (SampleApp)" },
+        { "image": "/demo_images/meter.png", "title": "Demo Meter" },
         { "image": "/demo_images/menu.png", "title": "Demo Main Menu" },
         { "image": "/demo_images/lift.png", "title": "Demo Lift" },
         { "image": "/demo_images/keyboard.png", "title": "Demo Keyboard Unicode" },
         { "image": "/demo_images/image.png", "title": "Demo Image Viewer" },
         { "image": "/demo_images/graph.png", "title": "Demo Graph" },
-        { "image": "/demo_images/button.png", "title": "Demo Meter" }
+        { "image": "/demo_images/button.png", "title": "Demo Rotary Control" }
       ]
     },
     "opensource": {
@@ -300,7 +301,7 @@
     },
     "hero": {
       "eyebrow": "Bridgetek · 开源门户",
-      "title": "让每一块显示屏因",
+      "title": "让每一块显示屏焕发生机",
       "highlight": "EVE",
       "subtitle": "本网站概览了由 Bridgetek 创建或分叉的开源代码仓库，方便您快速找到所需的开源资源。",
       "ctaPrimary": { "label": "浏览代码仓库", "href": "#overview" },
@@ -319,6 +320,7 @@
       "eyebrow": "概览",
       "title": "Bridgetek 开源资源一站式门户",
       "description": "本网站概览了由 Bridgetek 创建或分叉的开源代码仓库。您可以在这里找到以下相关信息：",
+      "explore": "浏览",
       "items": [
         { "id": "modules", "title": "显示模块支持", "text": "Bridgetek 显示模块的参考工程，从 IDP-1000 到 IDM2040-21R。", "icon": "display" },
         { "id": "an", "title": "应用笔记", "text": "EVE 专属（BRT_AN_012 / BRT_AN_025）及 ESD 相关的应用笔记代码仓库。", "icon": "doc" },
@@ -505,13 +507,13 @@
       "description": "图像查看器、媒体播放器、音频播放、Meta Balls、图形、冰箱等更多示例等你探索。",
       "items": [
         { "image": "/demo_images/video.png", "title": "媒体播放器（SampleApp）" },
-        { "image": "/demo_images/meter.png", "title": "图像查看器（SampleApp）" },
+        { "image": "/demo_images/meter.png", "title": "仪表演示" },
         { "image": "/demo_images/menu.png", "title": "演示主菜单" },
         { "image": "/demo_images/lift.png", "title": "电梯演示" },
         { "image": "/demo_images/keyboard.png", "title": "Unicode 键盘演示" },
         { "image": "/demo_images/image.png", "title": "图像查看器演示" },
         { "image": "/demo_images/graph.png", "title": "图形演示" },
-        { "image": "/demo_images/button.png", "title": "仪表演示" }
+        { "image": "/demo_images/button.png", "title": "旋钮控件演示" }
       ]
     },
     "opensource": {

@@ -12,7 +12,7 @@ export const DEFAULT_LANG: Lang = 'en';
 
 export const LANGS: Record<Lang, string> = {
   en: 'en',
-  ch: 'ch',
+  ch: 'zh-Hans',
 };
 
 // The single JSON file holds every translation.

@@ -24,8 +24,8 @@ const items = [...data.items, ...data.items]; // duplicate for seamless marquee
       {
         items.map((item, i) => (
           <div
-            key={i}
-            class="card-surface card-hover flex w-48 shrink-0 flex-col items-center justify-center gap-4 rounded-2xl px-5 py-8 text-center"
+            aria-hidden={i >= data.items.length ? 'true' : undefined}
+            class:list={['card-surface card-hover flex w-48 shrink-0 flex-col items-center justify-center gap-4 rounded-2xl px-5 py-8 text-center', { 'platform-duplicate': i >= data.items.length }]}
           >
             <img src={item.image} alt={item.label} loading="lazy" class="h-16 w-16 rounded-xl object-contain" width="64" height="64" />
             <span class="text-sm font-medium text-slate-200">{item.label}</span>

@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import type { Lang } from '../data/site';
-import { getContent, canonicalPath, langUrl } from '../data/site';
+import { getContent, canonicalPath, langUrl, LANGS } from '../data/site';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Reveal from '../components/Reveal.astro';
@@ -15,11 +15,12 @@ const { lang, pageTitle, pageDescription } = Astro.props;
 const content = getContent(lang);
 const title = pageTitle ?? content.meta.title;
 const description = pageDescription ?? content.meta.description;
-const other: Lang = lang === 'en' ? 'ch' : 'en';
+const site = Astro.site!;
+const absoluteUrl = (path: string) => new URL(path, site).href;
 ---
 
 <!doctype html>
-<html lang={lang} dir="ltr" data-lang={lang}>
+<html lang={LANGS[lang]} dir="ltr" data-lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,13 +33,14 @@ const other: Lang = lang === 'en' ? 'ch' : 'en';
     <meta property="og:site_name" content="Bridgetek EVE" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={content.meta.ogImage} />
+    <meta property="og:image" content={absoluteUrl(content.meta.ogImage)} />
+    <meta property="og:url" content={absoluteUrl(canonicalPath(lang))} />
 
     <!-- i18n -->
-    <link rel="alternate" hreflang="en" href="/" />
-    <link rel="alternate" hreflang="ch" href="/ch/" />
-    <link rel="alternate" hreflang="x-default" href="/" />
-    <link rel="canonical" href={canonicalPath(lang)} />
+    <link rel="alternate" hreflang="en" href={absoluteUrl(langUrl('en'))} />
+    <link rel="alternate" hreflang="zh-Hans" href={absoluteUrl(langUrl('ch'))} />
+    <link rel="alternate" hreflang="x-default" href={absoluteUrl('/')} />
+    <link rel="canonical" href={absoluteUrl(canonicalPath(lang))} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -52,6 +54,7 @@ const other: Lang = lang === 'en' ? 'ch' : 'en';
     />
   </head>
   <body class="min-h-screen antialiased">
+    <a class="skip-link" href="#main-content">{lang === 'ch' ? '跳至主要内容' : 'Skip to main content'}</a>
     <Navbar lang={lang} />
 
     <slot />

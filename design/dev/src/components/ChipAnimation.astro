@@ -321,6 +321,8 @@ const nodes = JSON.stringify(hero.chipNodes.map((n) => n.label));
 
   ro = new ResizeObserver(() => {
     layout();
+    // Resizing the backing canvas clears it, including the initial observer call.
+    if (reduceMotion) drawStatic();
   });
   ro.observe(canvas);
 

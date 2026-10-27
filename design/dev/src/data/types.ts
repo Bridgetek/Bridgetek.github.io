@@ -39,6 +39,7 @@ export interface SiteContent {
     eyebrow: string;
     title: string;
     description: string;
+    explore: string;
     items: {
       id: string;
       title: string;
@@ -113,7 +114,7 @@ export interface SiteContent {
     tel: string;
     website: string;
     linksTitle: string;
-    links: NavLink[];
+    links: { label: string; url: string }[];
     social: { facebook: string; twitter: string; youtube: string; linkedin: string };
     copyright: string;
   };

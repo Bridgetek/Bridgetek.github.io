@@ -22,7 +22,7 @@ design/
 │  │  ├─ components/           ← Navbar, Hero, ChipAnimation, sections, Footer...
 │  │  ├─ layouts/ pages/ styles/
 │  ├─ public/                  ← static assets (images, demo_images, logo, favicon)
-│  ├─ scripts/postbuild.mjs    ← copies tutorials/ into dist
+│  ├─ scripts/postbuild.mjs    ← copies repository tutorials/ into dist
 │  ├─ astro.config.mjs         ← outDir: "../dist"
 │  ├─ package.json  tsconfig.json  .gitignore
 │  └─ node_modules/
@@ -49,7 +49,7 @@ npm run preview    # preview the built site from dist/
 
 `npm run build` runs `astro build` (which writes directly into `../dist` thanks
 to `outDir: "../dist"`) and then `scripts/postbuild.mjs`, which copies
-`tutorials/` from `design1/` into `dist/tutorials` the first time.
+`tutorials/` from the repository root into `dist/tutorials` after each clean build.
 
 Result — `design/dist/` is the deployable site:
 

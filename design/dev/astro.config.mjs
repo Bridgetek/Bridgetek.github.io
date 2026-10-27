@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://brtchip.com',
+  site: 'https://bridgetek.github.io',
   // Build output lands directly in design/dist (the deployable folder):
   //   dist/index.html  -> English landing (/)
   //   dist/en/         -> /en/

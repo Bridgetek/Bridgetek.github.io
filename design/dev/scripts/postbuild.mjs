@@ -8,7 +8,7 @@
 //   dist/_astro/*, images, ... -> shared assets (referenced root-absolute)
 //
 // So design/dist IS the deployable site. This script only has one extra job:
-// copy the static tutorials/ (Sphinx builds from design1) into dist/tutorials
+// copy the static tutorials/ from the repository root into dist/tutorials
 // once, because they are not part of the Astro pipeline. They are shared by
 // every language via absolute /tutorials/... links.
 // ---------------------------------------------------------------------------
@@ -21,8 +21,8 @@ const dev = resolve(here, '..'); // design/dev
 const root = resolve(dev, '..'); // design
 const dist = join(root, 'dist');
 
-const design1 = resolve(root, '..', 'design1');
-const tutorialsSrc = join(design1, 'tutorials');
+const repository = resolve(root, '..');
+const tutorialsSrc = join(repository, 'tutorials');
 const tutorialsDst = join(dist, 'tutorials');
 
 if (!existsSync(dist)) {
@@ -35,7 +35,8 @@ if (!existsSync(tutorialsDst)) {
     cpSync(tutorialsSrc, tutorialsDst, { recursive: true });
     console.log('[postbuild] copied tutorials -> design/dist/tutorials');
   } else {
-    console.warn('[postbuild] design1/tutorials not found — skipped');
+    console.error('[postbuild] repository tutorials/ missing — cannot build tutorial links');
+    process.exit(1);
   }
 } else {
   console.log('[postbuild] tutorials/ already present — skipping copy');

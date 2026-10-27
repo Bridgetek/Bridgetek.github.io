@@ -41,10 +41,12 @@ const data = getContent(lang).questions;
         class:list={['reveal card-surface card-hover group flex items-center justify-between gap-3 rounded-2xl px-6 py-5 text-left', data.links.length % 2 === 0 ? 'sm:col-span-2 sm:mx-auto sm:w-full sm:max-w-xl' : '']}
         style={`transition-delay:${data.links.length * 60}ms`}
       >
-        <span class="flex items-center gap-3 text-sm text-slate-200">
+        <span class="flex min-w-0 items-center gap-3 text-sm text-slate-200">
           <Icon name="mail" size={18} class="shrink-0 text-eve-400" />
-          <span class="text-slate-500">{data.emailLabel}</span>
-          <span class="font-medium text-eve-300">{data.email}</span>
+          <span class="min-w-0">
+            <span class="block text-slate-400">{data.emailLabel}</span>
+            <span class="break-all font-medium text-eve-300">{data.email}</span>
+          </span>
         </span>
         <Icon name="external" size={16} class="shrink-0 text-slate-500 transition-colors group-hover:text-eve-400" />
       </a>
