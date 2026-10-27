@@ -246,7 +246,7 @@
       "links": [
         { "label": "Community forum — www.brtcommunity.com", "url": "http://www.brtcommunity.com" },
         { "label": "Official website — brtchip.com", "url": "http://www.brtchip.com" },
-        { "label": "Follow us on Twitter for important announcements", "url": "http://www.twitter.com/bridgetek1" }
+        { "label": "Follow us on X for important announcements", "url": "https://x.com/BridgetekPteLtd" }
       ],
       "emailLabel": "E-Mail (Support):",
       "email": "support.emea@brtchip.com"
@@ -271,7 +271,7 @@
       ],
       "social": {
         "facebook": "https://www.facebook.com/Bridgetek1",
-        "twitter": "http://www.twitter.com/bridgetek1",
+        "twitter": "https://x.com/BridgetekPteLtd",
         "youtube": "https://www.youtube.com/c/bridgetek",
         "linkedin": "https://www.linkedin.com/company/brtchip"
       },
@@ -525,7 +525,7 @@
       "links": [
         { "label": "社区论坛 — www.brtcommunity.com", "url": "http://www.brtcommunity.com" },
         { "label": "官方网站 — brtchip.com", "url": "http://www.brtchip.com" },
-        { "label": "在 Twitter 上关注我们，获取重要公告", "url": "http://www.twitter.com/bridgetek1" }
+        { "label": "在 X 上关注我们，获取重要公告", "url": "https://x.com/BridgetekPteLtd" }
       ],
       "emailLabel": "电子邮件（支持）：",
       "email": "support.emea@brtchip.com"
@@ -550,7 +550,7 @@
       ],
       "social": {
         "facebook": "https://www.facebook.com/Bridgetek1",
-        "twitter": "http://www.twitter.com/bridgetek1",
+        "twitter": "https://x.com/BridgetekPteLtd",
         "youtube": "https://www.youtube.com/c/bridgetek",
         "linkedin": "https://www.linkedin.com/company/brtchip"
       },
