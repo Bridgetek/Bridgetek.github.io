@@ -14,6 +14,7 @@ import Tutorials from './Tutorials.astro';
 import Gallery from './Gallery.astro';
 import OpenSource from './OpenSource.astro';
 import Questions from './Questions.astro';
+import EveAssistant from './EveAssistant.astro';
 
 interface Props {
   lang: Lang;
@@ -24,6 +25,7 @@ const { lang } = Astro.props;
 <BaseLayout lang={lang}>
   <main id="main-content" tabindex="-1">
     <Hero lang={lang} />
+    <EveAssistant lang={lang} />
     <OverviewCards lang={lang} />
     <StatsBar lang={lang} />
     <PlatformsStrip lang={lang} />

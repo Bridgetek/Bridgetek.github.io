@@ -1,5 +1,27 @@
 {
   "en": {
+    "assistant": {
+      "heroLink": "Meet the Bridgetek EVE Assistant",
+      "eyebrow": "AI assistance for EVE development",
+      "title": "Bridgetek EVE Assistant",
+      "headline": "Bring your next EVE idea into focus.",
+      "description": "Get engineering guidance for your EVE project through the Bridgetek EVE Assistant plugin in ChatGPT or Codex. Explore graphics and touch, work from official examples, and get help building and debugging your GUI.",
+      "families": "FT80x · FT81x · BT815 / BT816 · BT817 / BT818 · BT820 / BT82x",
+      "features": [
+        { "icon": "display", "title": "Build your GUI", "text": "Start with an official EveApps sample. Get guidance on screens, controls, assets, emulator prototyping and MCU integration." },
+        { "icon": "chip", "title": "Understand your EVE", "text": "Explore display lists, coprocessor commands, memory, fonts and touch with guidance tailored to your EVE generation." },
+        { "icon": "terminal", "title": "Debug with direction", "text": "Review code and SPI transactions to investigate blank displays, rendering problems, coprocessor faults and touch tags." }
+      ],
+      "promptsTitle": "Start with a question like…",
+      "prompts": [
+        "Help me build a touchscreen GUI for BT817 from an official EveApps sample.",
+        "Review my BT820 code for memory alignment and command FIFO handling.",
+        "My display is blank. Help me check initialization, SPI transactions and the display list."
+      ],
+      "cta": { "label": "Get the EVE Assistant plugin", "url": "https://chatgpt.com/plugins/plugin_c1518c1d13c4819199000e12d22c63f4?open_in_app" },
+      "install": "Open the plugin listing to get started. Sign in to ChatGPT; usage limits depend on your plan.",
+      "note": "For more useful guidance, include your EVE chip, display resolution, host MCU and relevant code. Verify implementation-critical details against official Bridgetek documentation."
+    },
     "meta": {
       "title": "Bridgetek EVE — Open Source Portal",
       "description": "Bridgetek EVE open source portal: display modules, application notes, MCU (FT9xx) & EVE (FT8xx/BT8xx) repositories, Embedded World demos and tutorials.",
@@ -280,6 +302,28 @@
     }
   },
   "ch": {
+    "assistant": {
+      "heroLink": "了解 Bridgetek EVE Assistant",
+      "eyebrow": "EVE 开发 AI 助手",
+      "title": "Bridgetek EVE Assistant",
+      "headline": "让下一个 EVE 创意更清晰。",
+      "description": "通过 ChatGPT 或 Codex 中的 Bridgetek EVE Assistant 插件，为您的 EVE 项目获取工程指导。探索图形与触摸功能，参考官方示例，获得 GUI 开发与调试帮助。",
+      "families": "FT80x · FT81x · BT815 / BT816 · BT817 / BT818 · BT820 / BT82x",
+      "features": [
+        { "icon": "display", "title": "构建 GUI", "text": "从官方 EveApps 示例开始，获取界面、控件、素材、仿真原型及 MCU 集成方面的指导。" },
+        { "icon": "chip", "title": "深入了解 EVE", "text": "根据您的 EVE 芯片系列，探索显示列表、协处理器命令、存储器、字体与触摸功能。" },
+        { "icon": "terminal", "title": "有方向地调试", "text": "检查代码与 SPI 传输，排查黑屏、渲染异常、协处理器故障及触摸标签问题。" }
+      ],
+      "promptsTitle": "试着从这些问题开始…",
+      "prompts": [
+        "请以官方 EveApps 示例为基础，帮我为 BT817 构建触摸屏 GUI。",
+        "请检查我的 BT820 代码中的存储器对齐与命令 FIFO 处理。",
+        "我的显示屏黑屏了，请帮我检查初始化、SPI 传输和显示列表。"
+      ],
+      "cta": { "label": "获取 EVE Assistant 插件", "url": "https://chatgpt.com/plugins/plugin_c1518c1d13c4819199000e12d22c63f4?open_in_app" },
+      "install": "打开插件详情页即可开始。使用前需登录 ChatGPT，用量限制取决于您的套餐。",
+      "note": "请提供 EVE 芯片型号、显示分辨率、主控 MCU 和相关代码，以获得更有用的指导。关键实现细节请以 Bridgetek 官方文档为准。"
+    },
     "meta": {
       "title": "Bridgetek EVE — 开源门户",
       "description": "Bridgetek EVE 开源门户：显示模块、应用笔记、MCU（FT9xx）与 EVE（FT8xx/BT8xx）代码仓库、Embedded World 演示与教程。",

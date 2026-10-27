@@ -14,6 +14,20 @@ export interface NavLink {
 }
 
 export interface SiteContent {
+  assistant: {
+    heroLink: string;
+    eyebrow: string;
+    title: string;
+    headline: string;
+    description: string;
+    families: string;
+    features: { icon: string; title: string; text: string }[];
+    promptsTitle: string;
+    prompts: string[];
+    cta: { label: string; url: string };
+    install: string;
+    note: string;
+  };
   meta: {
     title: string;
     description: string;
