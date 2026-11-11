@@ -166,6 +166,12 @@
           ]
         },
         {
+          "title": "Asset tools",
+          "items": [
+            { "name": "EAB-CLI", "desc": "EVE Asset Builder command-line tools for converting images, fonts, audio and video, and building flash images", "url": "https://github.com/Bridgetek/EAB-CLI" }
+          ]
+        },
+        {
           "title": "GUI Framework",
           "items": [
             { "name": "nuklear_eve", "desc": "Immediate-mode GUI on EVE", "url": "https://github.com/Bridgetek/nuklear_eve" },
@@ -465,6 +471,12 @@
             { "name": "pico-brteve", "desc": "适用于 Pico 的 C、CPython 与 CircuitPython", "url": "https://github.com/Bridgetek/pico-brteve" },
             { "name": "Eve-MCU-Dev", "desc": "面向嵌入式设计的 C 库", "url": "https://github.com/Bridgetek/Eve-MCU-Dev" },
             { "name": "py-bteve", "desc": "CircuitPython 内置 _EVE 类", "url": "https://github.com/jamesbowman/py-bteve" }
+          ]
+        },
+        {
+          "title": "资源工具",
+          "items": [
+            { "name": "EAB-CLI", "desc": "EVE Asset Builder 命令行工具，用于转换图像、字体、音频和视频，以及生成 Flash 镜像", "url": "https://github.com/Bridgetek/EAB-CLI" }
           ]
         },
         {
