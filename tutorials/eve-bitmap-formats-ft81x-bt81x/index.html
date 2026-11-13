@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PALETTED8, TEXTVGA, TEXT8X8 and BARGRAPH — Bridgetek EVE Tutorial</title><meta name="description" content="Five practical EVE Screen Editor examples of special bitmap formats on FT81x and BT81x."><link rel="canonical" href="https://bridgetek.github.io/tutorials/eve-bitmap-formats-ft81x-bt81x/"><style>
+:root{color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#0c1424;color:#dce6f5;font:16px/1.7 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#6dd5ff}header{background:#101d34;border-bottom:1px solid #304360;padding:22px max(20px,calc((100vw - 1120px)/2))}header a{text-decoration:none;font-weight:700}main{max-width:1060px;margin:auto;padding:36px 22px 90px}h1{color:white;line-height:1.16;font-size:clamp(2rem,4vw,3rem)}h2{color:#f7fbff;border-bottom:1px solid #385271;padding-bottom:9px;margin-top:54px}h3{color:#8bd9ff;margin-top:29px}p,li{max-width:88ch}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#1b2d45;border-radius:4px;padding:1px 5px}pre{overflow:auto;padding:19px;background:#15253d;border:1px solid #334a68;border-radius:10px}pre code{background:none;padding:0}.lead{font-size:1.16rem;color:#b9d0e8}.note{padding:15px 18px;background:#172c43;border-left:4px solid #54bee9;border-radius:5px}.toc{background:#122139;border:1px solid #304760;padding:20px 26px;border-radius:12px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:20px 0}th,td{padding:11px 13px;border:1px solid #344762;text-align:left;vertical-align:top}th{background:#1c3655;color:white}tr:nth-child(even){background:#12223a}footer{margin-top:60px;border-top:1px solid #33445d;padding-top:24px;color:#a9bad0}small{color:#9db0ca}
+</style></head><body><header><a href="https://bridgetek.github.io/en/#tutorials">Bridgetek EVE · Tutorials</a></header><main>
+<h1>Practical EVE Bitmap Formats: PALETTED8, TEXTVGA, TEXT8X8 and BARGRAPH</h1>
+<p class="lead">Five EVE Screen Editor (ESE) demonstrations for FT810–FT813 and BT815–BT818.</p>
+<p><strong>Reference projects:</strong> BT815, 480 × 272, from <code>ese-usecases-Paletted8-TextVGA-Text8x8-BarGraph.zip</code>. These examples use synthetic demonstration data rather than measurements from connected instruments. The supplied projects were not independently run on FT81x hardware for this article.</p>
+<nav class="toc" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#overview">Overview and sample projects</a></li><li><a href="#paletted">PALETTED8: thermal display and alarm</a></li><li><a href="#textvga">TEXTVGA: CNC controller console</a></li><li><a href="#text8x8">TEXT8X8: circular CAN log</a></li><li><a href="#bargraph">BARGRAPH: spectrum and history</a></li><li><a href="#compatibility">FT81x / BT81x portability</a></li><li><a href="#references">References</a></li></ol></nav>
+<h2 id="overview">1. Overview and source projects</h2>
+<p>Unlike ordinary pixel-colour textures, these formats store compact representations that the EVE graphics engine expands during display-list rendering. PALETTED8 holds colour indices; TEXTVGA holds a character/attribute pair per cell; TEXT8X8 holds one character per cell; BARGRAPH holds a height threshold per column.</p>
+<div class="table-wrap"><table><thead><tr><th>ESE project</th><th>Format / purpose</th><th>Supplied RAM_G assets</th><th>DL words</th></tr></thead><tbody>
+<tr><td><code>UC_Paletted8_Thermal</code></td><td>160 × 120 thermal image / ironbow palette</td><td>20,583 bytes</td><td>106</td></tr>
+<tr><td><code>UC_Paletted8_Thermal_Alarm</code></td><td>Palette-only temperature alarm variant</td><td>20,594 bytes</td><td>118</td></tr>
+<tr><td><code>UC_TextVGA_Console</code></td><td>60 × 17 CNC text console</td><td>2,040 bytes</td><td>9</td></tr>
+<tr><td><code>UC_Text8x8_CANLog</code></td><td>J1939/CAN text trace</td><td>4,241 bytes</td><td>59</td></tr>
+<tr><td><code>UC_Bargraph_Spectrum</code></td><td>31-band spectrum and level history</td><td>1,105 bytes</td><td>244</td></tr></tbody></table></div>
+<p>Each example contains an <code>.ese</code> project, raw RAM_G payloads in <code>resources/</code>, and an overview screenshot. Open a project in EVE Screen Editor, configure BT815 / 480 × 272, and inspect its Content and Coprocessor tabs. The <code>.raw</code> resources are byte-exact memory images: firmware must place them at the corresponding RAM_G addresses before drawing.</p>
+<h2 id="paletted">2. PALETTED8 — thermal-camera image and palette-only alarm</h2>
+<p>The thermal demo quantizes a synthetic 160 × 120 temperature field to 19,200 byte indices. A separate 256-entry, four-byte-per-entry palette maps indices into colours, allowing colour mapping to change independently of the input pixels.</p>
+<div class="table-wrap"><table><tr><th>RAM_G address</th><th>Resource</th><th>Length</th></tr><tr><td><code>0x000000</code></td><td><code>palette.raw</code> (BGRA entries)</td><td>1,024 B</td></tr><tr><td><code>0x000400</code></td><td><code>frame.raw</code> (160 × 120 indices)</td><td>19,200 B</td></tr><tr><td><code>0x004F00</code></td><td><code>colorbar.raw</code></td><td>256 B</td></tr><tr><td><code>0x005000</code></td><td><code>labels.raw</code></td><td>103 B</td></tr></table></div>
+<p>On these devices a coloured PALETTED8 bitmap is composed using four draws. <code>COLOR_MASK</code> enables one output channel at a time, and <code>PALETTE_SOURCE</code> selects the appropriate palette byte: 3 for A, 2 for R, 1 for G and 0 for B.</p>
+<pre><code>BEGIN(BITMAPS);
+BITMAP_HANDLE(0);
+BITMAP_SOURCE(1024);
+BITMAP_LAYOUT(PALETTED8, 160, 120);
+BITMAP_SIZE(BILINEAR, BORDER, BORDER, 320, 240);
+BITMAP_TRANSFORM_A(0, 128);  /* BT81x 2x */
+BITMAP_TRANSFORM_E(0, 128);
+BLEND_FUNC(ONE, ZERO);
+COLOR_MASK(0,0,0,1); PALETTE_SOURCE(3); VERTEX2II(8,20,0,0);
+COLOR_MASK(1,0,0,0); PALETTE_SOURCE(2); VERTEX2II(8,20,0,0);
+COLOR_MASK(0,1,0,0); PALETTE_SOURCE(1); VERTEX2II(8,20,0,0);
+COLOR_MASK(0,0,1,0); PALETTE_SOURCE(0); VERTEX2II(8,20,0,0);
+COLOR_MASK(1,1,1,1);
+BLEND_FUNC(SRC_ALPHA,ONE_MINUS_SRC_ALPHA);</code></pre>
+<p>In <code>UC_Paletted8_Thermal_Alarm</code>, the 19,200-byte frame is unchanged. Only the palette and labels change: entries 181–255 (the configured 55 °C threshold and higher) are mapped to green RGB(0,255,64). Updating 75 palette entries costs just <strong>300 bytes</strong>; replacing the complete palette costs 1,024 bytes.</p>
+<p class="note"><strong>Use case:</strong> false-colour temperature maps, heatmaps, alarm isotherms and themes. <strong>Trade-off:</strong> four full-image passes may increase worst-scanline rendering time.</p>
+<h2 id="textvga">3. TEXTVGA — a 2 KB CNC controller console</h2>
+<p>The console renders 60 columns × 17 rows of 8 × 16-pixel cells, filling the 480 × 272 display. Each cell is two bytes: a CP437 character followed by a VGA foreground/background attribute. The memory requirement is <strong>60 × 17 × 2 = 2,040 bytes</strong>.</p>
+<pre><code>CLEAR(1,1,1);
+BLEND_FUNC(ONE,ZERO);
+BEGIN(BITMAPS);
+BITMAP_HANDLE(0);
+BITMAP_SOURCE(0);
+BITMAP_LAYOUT(TEXTVGA,120,17);  /* 60 cells x 2 bytes */
+BITMAP_SIZE(NEAREST,BORDER,BORDER,480,272);
+VERTEX2II(0,0,0,0);</code></pre>
+<p>The attribute byte is <code>((background &amp; 15) &lt;&lt; 4) | (foreground &amp; 15)</code>. Address an arbitrary cell with <code>base + 2 * (row * 60 + column)</code>; updating a character or its colour requires only two bytes. The example includes CP437 borders, coloured selections and status readouts. Its explicit <code>BLEND_FUNC(ONE,ZERO)</code> preserves the intended opaque console background.</p>
+<p class="note"><strong>Use case:</strong> operator panels, service screens, industrial terminal emulation. <strong>Trade-off:</strong> fixed 8 × 16 cells and CP437 character repertoire.</p>
+<h2 id="text8x8">4. TEXT8X8 — a scrolling CAN diagnostic trace</h2>
+<p>The CAN logger uses a 64-row × 64-column byte ring (<strong>4,096 bytes</strong>), plus 145 bytes for fixed headings and footer. Each byte identifies one 8 × 8 CP437 glyph; the colour is selected per draw with <code>COLOR_RGB</code>, not stored per cell.</p>
+<p>For the example head position 10, the 30 visible rows are physical rows 44–63 and then 0–9. Rather than moving 30 rows of text, the display list selects the circular start with an 8.8 fixed-point vertical transform:</p>
+<pre><code>BITMAP_HANDLE(0);
+BITMAP_SOURCE(0);
+BITMAP_LAYOUT(TEXT8X8,64,64);
+BITMAP_SIZE(NEAREST,REPEAT,REPEAT,480,240);
+BITMAP_TRANSFORM_F(90112); /* 44 rows x 8 px x 256 */
+COLOR_RGB(60,230,110);
+VERTEX2II(0,24,0,0);</code></pre>
+<p>When a new message arrives, the MCU writes a 64-byte row, advances the head and adjusts the transform. For error highlighting, draw the same TEXT8X8 bitmap again, clipped to one 8-pixel-high row, with a different <code>COLOR_RGB</code>.</p>
+<pre><code>SCISSOR_XY(0,72);
+SCISSOR_SIZE(480,8);
+COLOR_RGB(255,70,60);
+VERTEX2II(0,24,0,0);
+SCISSOR_XY(0,0);
+SCISSOR_SIZE(480,272);</code></pre>
+<p class="note"><strong>Use case:</strong> CAN, UART and diagnostic logs. <strong>Trade-off:</strong> per-row highlighting requires updating scissor positions as the ring view scrolls.</p>
+<h2 id="bargraph">5. BARGRAPH — 31-band spectrum with history</h2>
+<p>BARGRAPH stores a threshold byte per horizontal column. In the supplied example, a source row is painted where its source y exceeds the byte. A height <code>h</code> is encoded as <code>255 - h</code>; byte 255 is empty. A 31-band spectrum uses 12 columns per band and a 2-column gap: <strong>31 × 14 = 434 bytes</strong>. A separate 512-byte ring stores the scrolling history; labels add 159 bytes.</p>
+<pre><code>BITMAP_HANDLE(0);
+BITMAP_SOURCE(0);
+BITMAP_LAYOUT(BARGRAPH,434,1);
+BITMAP_SIZE(NEAREST,BORDER,BORDER,434,150);
+BITMAP_TRANSFORM_F(27136); /* (256-150) * 256 */
+
+SCISSOR_XY(0,24); SCISSOR_SIZE(480,15);
+COLOR_RGB(255,60,50); VERTEX2II(44,24,0,0);
+SCISSOR_XY(0,39); SCISSOR_SIZE(480,30);
+COLOR_RGB(255,200,0); VERTEX2II(44,24,0,0);
+SCISSOR_XY(0,69); SCISSOR_SIZE(480,105);
+COLOR_RGB(40,220,90); VERTEX2II(44,24,0,0);
+SCISSOR_XY(0,0); SCISSOR_SIZE(480,272);</code></pre>
+<p>Drawing the same bitmap through three scissor bands creates red, yellow and green regions. Peak-hold markers are separate rectangles. Updating spectrum amplitude requires only the column bytes; scrolling history uses horizontal <code>REPEAT</code> and an x transform, avoiding a history-buffer copy. The example sets <code>BITMAP_TRANSFORM_C(76800)</code> for history column 300 and <code>BITMAP_TRANSFORM_F(50176)</code> for the 60-pixel-height history region.</p>
+<p class="note"><strong>Use case:</strong> VU meters, audio bands, trend displays and telemetry. <strong>Trade-off:</strong> source vertical coordinate space is 256 rows; taller visualizations need scaling or alternative rendering.</p>
+<h2 id="compatibility">6. Compatibility, porting and practical checks</h2>
+<div class="table-wrap"><table><tr><th>Format</th><th>Bytes per element</th><th>Typical update</th></tr><tr><td>PALETTED8</td><td>1 byte/index, plus BGRA palette</td><td>Palette entries or index-region update</td></tr><tr><td>TEXTVGA</td><td>2 bytes/text cell</td><td>One 2-byte character/attribute pair</td></tr><tr><td>TEXT8X8</td><td>1 byte/text cell</td><td>One new ring row</td></tr><tr><td>BARGRAPH</td><td>1 byte/column</td><td>Changed column heights</td></tr></table></div>
+<p>The supplied projects were generated for BT815. Their generator supports <code>FT810</code>, <code>FT811</code>, <code>FT812</code>, <code>FT813</code>, <code>BT815</code>, <code>BT816</code>, <code>BT817</code> and <code>BT818</code>. On FT81x, the relevant 2× transform takes the one-argument 8.8 fixed-point syntax:</p>
+<pre><code>/* BT81x: precision argument and value */
+BITMAP_TRANSFORM_A(0,128);
+BITMAP_TRANSFORM_E(0,128);
+/* FT81x: 8.8 signed fixed-point value */
+BITMAP_TRANSFORM_A(128);
+BITMAP_TRANSFORM_E(128);</code></pre>
+<pre><code>python -m pip install numpy
+python make_assets.py --device FT813
+python make_assets.py --device BT817</code></pre>
+<p>For 800 × 480 ports, use <code>VERTEX2F</code> where x/y exceed <code>VERTEX2II</code>'s 9-bit coordinates; use <code>BITMAP_SIZE_H</code> and <code>BITMAP_LAYOUT_H</code> where dimension and stride fields exceed their base-command limits. Reset persistent high-bit bitmap state when reusing handles. Verify RAM_G placement, the display-list swap and scanline timing on target hardware.</p>
+<h2 id="references">7. References</h2>
+<ul><li>Source: <code>ese-usecases-Paletted8-TextVGA-Text8x8-BarGraph.zip</code> supplied for this tutorial; see its <code>README.md</code>, <code>make_assets.py</code>, five <code>.ese</code> projects and <code>resources/</code> assets.</li><li><a href="https://www.brtchip.com/">Bridgetek product and documentation portal</a></li><li><a href="https://bridgetek.github.io/">Bridgetek open-source documentation</a></li><li><a href="https://github.com/Bridgetek/Eve-MCU-Dev">EVE-MCU-Dev</a></li></ul>
+<footer>Bridgetek EVE Technical Tutorial · Source-grounded demonstration notes · <a href="https://bridgetek.github.io/en/#tutorials">Back to Tutorials</a></footer></main></body></html>
