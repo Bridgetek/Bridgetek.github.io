@@ -103,7 +103,7 @@ export interface SiteContent {
     eyebrow: string;
     title: string;
     description: string;
-    groups: { title: string; items: { label: string; url: string }[] }[];
+    groups: { title: string; image?: string; items: { label: string; url: string }[] }[];
   };
   gallery: {
     eyebrow: string;
