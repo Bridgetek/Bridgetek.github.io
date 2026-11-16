@@ -556,7 +556,8 @@
               "label": "PALETTED8, TEXTVGA, TEXT8X8 & BARGRAPH — practical examples",
               "url": "/tutorials/eve-bitmap-formats-ft81x-bt81x/"
             }
-          ]
+          ],
+          "image": "/tutorials/eve-bitmap-formats-ft81x-bt81x/assets/UC_Paletted8_Thermal.webp"
         }
       ]
     },
@@ -1229,7 +1230,8 @@
               "label": "PALETTED8、TEXTVGA、TEXT8X8 和 BARGRAPH 实例教程",
               "url": "/tutorials/eve-bitmap-formats-ft81x-bt81x/"
             }
-          ]
+          ],
+          "image": "/tutorials/eve-bitmap-formats-ft81x-bt81x/assets/UC_Paletted8_Thermal.webp"
         }
       ]
     },
