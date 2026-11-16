@@ -1,10 +1,16 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PALETTED8, TEXTVGA, TEXT8X8 and BARGRAPH — Bridgetek EVE Tutorial</title><meta name="description" content="Five practical EVE Screen Editor examples of special bitmap formats on FT81x and BT81x."><link rel="canonical" href="https://bridgetek.github.io/tutorials/eve-bitmap-formats-ft81x-bt81x/"><style>
 :root{color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#0c1424;color:#dce6f5;font:16px/1.7 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#6dd5ff}header{background:#101d34;border-bottom:1px solid #304360;padding:22px max(20px,calc((100vw - 1120px)/2))}header a{text-decoration:none;font-weight:700}main{max-width:1060px;margin:auto;padding:36px 22px 90px}h1{color:white;line-height:1.16;font-size:clamp(2rem,4vw,3rem)}h2{color:#f7fbff;border-bottom:1px solid #385271;padding-bottom:9px;margin-top:54px}h3{color:#8bd9ff;margin-top:29px}p,li{max-width:88ch}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#1b2d45;border-radius:4px;padding:1px 5px}pre{overflow:auto;padding:19px;background:#15253d;border:1px solid #334a68;border-radius:10px}pre code{background:none;padding:0}.lead{font-size:1.16rem;color:#b9d0e8}.note{padding:15px 18px;background:#172c43;border-left:4px solid #54bee9;border-radius:5px}.toc{background:#122139;border:1px solid #304760;padding:20px 26px;border-radius:12px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:20px 0}th,td{padding:11px 13px;border:1px solid #344762;text-align:left;vertical-align:top}th{background:#1c3655;color:white}tr:nth-child(even){background:#12223a}footer{margin-top:60px;border-top:1px solid #33445d;padding-top:24px;color:#a9bad0}small{color:#9db0ca}
-</style></head><body><header><a href="https://bridgetek.github.io/en/#tutorials">Bridgetek EVE · Tutorials</a></header><main>
+.screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}.screens figure{margin:0;background:#13243b;padding:12px;border:1px solid #334761;border-radius:12px}.screens img{display:block;width:100%;height:auto;border-radius:8px;image-rendering:auto}.screens figcaption{color:#b2c9de;margin-top:8px;font-size:.92rem}</style></head><body><header><a href="https://bridgetek.github.io/en/#tutorials">Bridgetek EVE · Tutorials</a></header><main>
 <h1>Practical EVE Bitmap Formats: PALETTED8, TEXTVGA, TEXT8X8 and BARGRAPH</h1>
 <p class="lead">Five EVE Screen Editor (ESE) demonstrations for FT810–FT813 and BT815–BT818.</p>
 <p><strong>Reference projects:</strong> BT815, 480 × 272, from <code>ese-usecases-Paletted8-TextVGA-Text8x8-BarGraph.zip</code>. These examples use synthetic demonstration data rather than measurements from connected instruments. The supplied projects were not independently run on FT81x hardware for this article.</p>
-<nav class="toc" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#overview">Overview and sample projects</a></li><li><a href="#paletted">PALETTED8: thermal display and alarm</a></li><li><a href="#textvga">TEXTVGA: CNC controller console</a></li><li><a href="#text8x8">TEXT8X8: circular CAN log</a></li><li><a href="#bargraph">BARGRAPH: spectrum and history</a></li><li><a href="#compatibility">FT81x / BT81x portability</a></li><li><a href="#references">References</a></li></ol></nav>
+<nav class="toc" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#overview">Overview and sample projects</a></li><li><a href="#paletted">PALETTED8: thermal display and alarm</a></li><li><a href="#textvga">TEXTVGA: CNC controller console</a></li><li><a href="#text8x8">TEXT8X8: circular CAN log</a></li><li><a href="#bargraph">BARGRAPH: spectrum and history</a></li><li><a href="#compatibility">FT81x / BT81x portability</a></li><li><a href="#asset-generation">Generate the assets</a></li><li><a href="#screenshots">Example screenshots</a></li><li><a href="#references">References</a></li></ol></nav>
+<h2 id="screenshots">Example screenshots from the ESE projects</h2>
+<p>The following screen captures are taken from the ESE example project's <code>overview/</code> resources. They show the synthetic thermal-camera and audio-spectrum demonstrations.</p>
+<div class="screens">
+<figure><a href="./assets/UC_Paletted8_Thermal.webp"><img src="./assets/UC_Paletted8_Thermal.webp" width="360" height="204" loading="lazy" alt="PALETTED8 ironbow thermal-camera ESE example"></a><figcaption>PALETTED8 — indexed thermal image with ironbow palette</figcaption></figure>
+<figure><a href="./assets/UC_Bargraph_Spectrum.webp"><img src="./assets/UC_Bargraph_Spectrum.webp" width="240" height="136" loading="lazy" alt="BARGRAPH 31-band spectrum analyser ESE example"></a><figcaption>BARGRAPH — 31-band spectrum analyser and history</figcaption></figure>
+</div>
 <h2 id="overview">1. Overview and source projects</h2>
 <p>Unlike ordinary pixel-colour textures, these formats store compact representations that the EVE graphics engine expands during display-list rendering. PALETTED8 holds colour indices; TEXTVGA holds a character/attribute pair per cell; TEXT8X8 holds one character per cell; BARGRAPH holds a height threshold per column.</p>
 <div class="table-wrap"><table><thead><tr><th>ESE project</th><th>Format / purpose</th><th>Supplied RAM_G assets</th><th>DL words</th></tr></thead><tbody>
@@ -94,6 +100,52 @@ BITMAP_TRANSFORM_E(128);</code></pre>
 python make_assets.py --device FT813
 python make_assets.py --device BT817</code></pre>
 <p>For 800 × 480 ports, use <code>VERTEX2F</code> where x/y exceed <code>VERTEX2II</code>'s 9-bit coordinates; use <code>BITMAP_SIZE_H</code> and <code>BITMAP_LAYOUT_H</code> where dimension and stride fields exceed their base-command limits. Reset persistent high-bit bitmap state when reusing handles. Verify RAM_G placement, the display-list swap and scanline timing on target hardware.</p>
-<h2 id="references">7. References</h2>
+<h2 id="asset-generation">7. Rebuilding the raw RAM_G assets and ESE projects</h2>
+<p>The supplied archive contains <code>make_assets.py</code>, a deterministic Python generator that creates the raw binary memory regions, the ESE project descriptions and the overview metadata. The sample input is <strong>synthetic</strong>; no thermal sensor, CAN adapter or microphone is required.</p>
+<h3>Prerequisites and commands</h3>
+<p>Extract the provided <code>ese-usecases-Paletted8-TextVGA-Text8x8-BarGraph.zip</code> archive and run the following commands from the extracted directory:</p>
+<pre><code>python -m pip install numpy
+python make_assets.py                  # rebuild the five default BT815 projects
+python make_assets.py --device FT813   # write an FT813 project set into ./FT813/
+python make_assets.py --device BT817   # write a BT817 project set into ./BT817/
+python make_assets.py --help           # list all supported --device values</code></pre>
+<p>Python 3.7 or later and NumPy are required. The script's supported targets are FT810–FT813, BT815–BT818 and BT880–BT883. The default device is BT815.</p>
+<h3>How the generator works</h3>
+<ol>
+<li><strong>Modify a screen's builder:</strong> open <code>make_assets.py</code> and edit <code>build_thermal()</code>, <code>build_console()</code>, <code>build_canlog()</code> or <code>build_spectrum()</code>. The alarm variation is produced from the thermal builder.</li>
+<li><strong>Regenerate the project:</strong> rerun the generator for the intended <code>--device</code>. The script emits each <code>UC_.../resources/*.raw</code>, the matching <code>UC_....ese</code> project and <code>overview/overview.json</code>.</li>
+<li><strong>Inspect the RAM_G map:</strong> each raw asset is a headerless byte image. The <code>.ese</code> Content tab defines its <code>fileType: Raw</code> and fixed <code>memoryAddress</code>. The Coprocessor tab documents the address map and display-list code.</li>
+<li><strong>Open and check in ESE:</strong> choose <em>File → Open</em>, select a generated <code>.ese</code>, and confirm the display and expected memory layout. For a different panel, update the ESE resolution and display-list layout as needed.</li>
+<li><strong>Refresh the screenshot manually:</strong> the generator intentionally does <em>not</em> regenerate <code>overview/*.png</code>. Capture a fresh ESE screenshot after modifying graphics.</li>
+</ol>
+<h3>Example data generation for each bitmap format</h3>
+<div class="table-wrap"><table><thead><tr><th>Project</th><th>Raw asset creation</th><th>Update unit</th></tr></thead><tbody>
+<tr><td>PALETTED8 thermal</td><td>Quantize a 120×160 floating-point temperature field into 8-bit indices. Build 256 BGRA entries and a separate 256-byte palette colour bar.</td><td>One pixel index or palette entry (4 bytes)</td></tr>
+<tr><td>TEXTVGA console</td><td>Encode CP437 characters and VGA foreground/background attributes in a <code>(17,60,2)</code> array.</td><td>2 bytes per character cell</td></tr>
+<tr><td>TEXT8X8 CAN log</td><td>Build 64 rows × 64 columns of CP437 bytes and select the visible portion with bitmap transform.</td><td>64 bytes per incoming log line</td></tr>
+<tr><td>BARGRAPH spectrum</td><td>Generate 31 band levels, each stored across 12 bar columns and two 255-valued gap columns; construct the 512-column history ring.</td><td>One byte per column</td></tr>
+</tbody></table></div>
+<p>Minimal examples derived from the archive's generator:</p>
+<pre><code># PALETTED8 indices and BGRA lookup table
+indices = np.rint((temperature - temperature.min()) /
+                  np.ptp(temperature) * 255).astype(np.uint8)
+indices.tofile("frame.raw")
+palette = np.zeros((256, 4), dtype=np.uint8)
+palette[:, 0], palette[:, 1], palette[:, 2], palette[:, 3] = blue, green, red, 255
+palette.tofile("palette.raw")
+
+# TEXTVGA character and colour attributes
+cells = np.zeros((17, 60, 2), dtype=np.uint8)
+cells[..., 0] = ord(" ")
+cells[..., 1] = (1 &lt;&lt; 4) | 7
+cells.tofile("screen.raw")
+
+# BARGRAPH vertical threshold values; 255 means empty
+columns = np.full(31 * 14, 255, dtype=np.uint8)
+for band in range(31):
+    columns[band * 14:band * 14 + 12] = 255 - heights[band]
+columns.tofile("spectrum.raw")</code></pre>
+<p class="note">These small snippets illustrate the byte layouts; the supplied <code>make_assets.py</code> is the complete source for reproducing all projects, labels, address maps and display-list commands. Running the snippets alone does not generate an ESE project.</p>
+<h2 id="references">8. References</h2>
 <ul><li>Source: <code>ese-usecases-Paletted8-TextVGA-Text8x8-BarGraph.zip</code> supplied for this tutorial; see its <code>README.md</code>, <code>make_assets.py</code>, five <code>.ese</code> projects and <code>resources/</code> assets.</li><li><a href="https://www.brtchip.com/">Bridgetek product and documentation portal</a></li><li><a href="https://bridgetek.github.io/">Bridgetek open-source documentation</a></li><li><a href="https://github.com/Bridgetek/Eve-MCU-Dev">EVE-MCU-Dev</a></li></ul>
 <footer>Bridgetek EVE Technical Tutorial · Source-grounded demonstration notes · <a href="https://bridgetek.github.io/en/#tutorials">Back to Tutorials</a></footer></main></body></html>
