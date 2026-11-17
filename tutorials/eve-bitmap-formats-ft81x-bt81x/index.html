@@ -1,17 +1,29 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PALETTED8, TEXTVGA, TEXT8X8 and BARGRAPH — Bridgetek EVE Tutorial</title><meta name="description" content="Five practical EVE Screen Editor examples of special bitmap formats on FT81x and BT81x."><link rel="canonical" href="https://bridgetek.github.io/tutorials/eve-bitmap-formats-ft81x-bt81x/"><style>
 :root{color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#0c1424;color:#dce6f5;font:16px/1.7 system-ui,-apple-system,Segoe UI,sans-serif}a{color:#6dd5ff}header{background:#101d34;border-bottom:1px solid #304360;padding:22px max(20px,calc((100vw - 1120px)/2))}header a{text-decoration:none;font-weight:700}main{max-width:1060px;margin:auto;padding:36px 22px 90px}h1{color:white;line-height:1.16;font-size:clamp(2rem,4vw,3rem)}h2{color:#f7fbff;border-bottom:1px solid #385271;padding-bottom:9px;margin-top:54px}h3{color:#8bd9ff;margin-top:29px}p,li{max-width:88ch}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#1b2d45;border-radius:4px;padding:1px 5px}pre{overflow:auto;padding:19px;background:#15253d;border:1px solid #334a68;border-radius:10px}pre code{background:none;padding:0}.lead{font-size:1.16rem;color:#b9d0e8}.note{padding:15px 18px;background:#172c43;border-left:4px solid #54bee9;border-radius:5px}.toc{background:#122139;border:1px solid #304760;padding:20px 26px;border-radius:12px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:20px 0}th,td{padding:11px 13px;border:1px solid #344762;text-align:left;vertical-align:top}th{background:#1c3655;color:white}tr:nth-child(even){background:#12223a}footer{margin-top:60px;border-top:1px solid #33445d;padding-top:24px;color:#a9bad0}small{color:#9db0ca}
-.screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}.screens figure{margin:0;background:#13243b;padding:12px;border:1px solid #334761;border-radius:12px}.screens img{display:block;width:100%;height:auto;border-radius:8px;image-rendering:auto}.screens figcaption{color:#b2c9de;margin-top:8px;font-size:.92rem}</style></head><body><header><a href="https://bridgetek.github.io/en/#tutorials">Bridgetek EVE · Tutorials</a></header><main>
+.screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}.screens figure{margin:0;background:#13243b;padding:12px;border:1px solid #334761;border-radius:12px}.screens img{display:block;width:100%;height:auto;border-radius:8px;image-rendering:auto}.screens figcaption{color:#b2c9de;margin-top:8px;font-size:.92rem}
+/* Accessible screenshot viewer */
+.screens .shot-trigger{display:block;width:100%;padding:0;background:none;border:0;cursor:zoom-in;border-radius:8px;text-align:left}
+.screens .shot-trigger:focus-visible{outline:3px solid #64d5ff;outline-offset:4px}
+.screens .shot-trigger img{width:100%;height:auto;transition:transform .2s ease}
+.screens .shot-trigger:hover img{transform:scale(1.015)}
+.viewer{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;background:rgba(1,5,12,.95);padding:18px;cursor:zoom-out}
+.viewer[aria-hidden="false"]{display:flex}
+.viewer-contents{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;max-width:100%;max-height:100%;text-align:center}
+.viewer-contents img{max-width:98vw;max-height:calc(100dvh - 100px);object-fit:contain;width:auto;height:auto;border:1px solid #405573;border-radius:8px}
+.viewer-caption{color:#e6f3ff;font-size:15px}.viewer-instruction{color:#a4bfd8;font-size:13px}
+@media(prefers-reduced-motion:reduce){.screens .shot-trigger img{transition:none}}
+</style></head><body><header><a href="https://bridgetek.github.io/en/#tutorials">Bridgetek EVE · Tutorials</a></header><main>
 <h1>Practical EVE Bitmap Formats: PALETTED8, TEXTVGA, TEXT8X8 and BARGRAPH</h1>
 <p class="lead">Five EVE Screen Editor (ESE) demonstrations for FT810–FT813 and BT815–BT818.</p>
 <p><strong>Reference projects:</strong> BT815, 480 × 272, from <code>ese-usecases-Paletted8-TextVGA-Text8x8-BarGraph.zip</code>. These examples use synthetic demonstration data rather than measurements from connected instruments. The supplied projects were not independently run on FT81x hardware for this article.</p>
 <nav class="toc" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#overview">Overview and sample projects</a></li><li><a href="#paletted">PALETTED8: thermal display and alarm</a></li><li><a href="#textvga">TEXTVGA: CNC controller console</a></li><li><a href="#text8x8">TEXT8X8: circular CAN log</a></li><li><a href="#bargraph">BARGRAPH: spectrum and history</a></li><li><a href="#compatibility">FT81x / BT81x portability</a></li><li><a href="#asset-generation">Generate the assets</a></li><li><a href="#screenshots">Example screenshots</a></li><li><a href="#references">References</a></li></ol></nav>
-<h2 id="screenshots">Example screenshots from the ESE projects</h2>
-<p>The following screen captures are taken from the ESE example project's <code>overview/</code> resources. They show the synthetic thermal-camera, CNC controller, CAN diagnostic trace and audio-spectrum demonstrations.</p>
+<h2 id="screenshots">Example screenshots from EVE Screen Editor</h2>
+<p>Double-click a screenshot to view an enlarged image. Click the enlarged image or outside it to return to the tutorial, or press Esc.</p>
 <div class="screens">
-<figure><a href="./assets/UC_Paletted8_Thermal.webp"><img src="./assets/UC_Paletted8_Thermal.webp" width="360" height="204" loading="lazy" alt="PALETTED8 ironbow thermal-camera ESE example"></a><figcaption>PALETTED8 — indexed thermal image with ironbow palette</figcaption></figure>
-<figure><a href="./assets/UC_TextVGA_Console.png"><img src="./assets/UC_TextVGA_Console.png" width="320" height="181" loading="lazy" alt="TEXTVGA CNC spindle-controller console showing fixed-cell layout, CP437 characters and coloured attributes"></a><figcaption>TEXTVGA — CNC controller console (60 × 17 character cells)</figcaption></figure>
-<figure><a href="./assets/UC_Text8x8_CANLog.png"><img src="./assets/UC_Text8x8_CANLog.png" width="320" height="181" loading="lazy" alt="TEXT8X8 diagnostic CAN trace showing rolling hexadecimal J1939 messages and error lines"></a><figcaption>TEXT8X8 — CAN diagnostic trace with circular text buffer</figcaption></figure>
-<figure><a href="./assets/UC_Bargraph_Spectrum.webp"><img src="./assets/UC_Bargraph_Spectrum.webp" width="240" height="136" loading="lazy" alt="BARGRAPH 31-band spectrum analyser ESE example"></a><figcaption>BARGRAPH — 31-band spectrum analyser and history</figcaption></figure>
+<figure><button type="button" class="shot-trigger" aria-label="Open PALETTED8 thermal-camera screenshot"><img src="./assets/UC_Paletted8_Thermal.webp" alt="PALETTED8 thermal-camera display" loading="lazy" width="480" height="272"></button><figcaption>PALETTED8 — thermal imaging example</figcaption></figure>
+<figure><button type="button" class="shot-trigger" aria-label="Open TEXTVGA CNC controller console screenshot"><img src="./assets/UC_TextVGA_Console.png" alt="TEXTVGA CNC spindle-controller console" loading="lazy" width="480" height="272"></button><figcaption>TEXTVGA — CNC controller console</figcaption></figure>
+<figure><button type="button" class="shot-trigger" aria-label="Open TEXT8X8 CAN diagnostic trace screenshot"><img src="./assets/UC_Text8x8_CANLog.png" alt="TEXT8X8 CAN diagnostic message trace" loading="lazy" width="480" height="272"></button><figcaption>TEXT8X8 — CAN diagnostic trace</figcaption></figure>
+<figure><button type="button" class="shot-trigger" aria-label="Open BARGRAPH spectrum analyser screenshot"><img src="./assets/UC_Bargraph_Spectrum.webp" alt="BARGRAPH 31-band audio spectrum and history" loading="lazy" width="480" height="272"></button><figcaption>BARGRAPH — spectrum analyser and history</figcaption></figure>
 </div>
 <h2 id="overview">1. Overview and source projects</h2>
 <div class="note" role="region" aria-label="Download EVE Screen Editor project archive" style="margin:20px 0 24px;padding:20px 24px">
@@ -157,4 +169,22 @@ columns.tofile("spectrum.raw")</code></pre>
 <p class="note">These small snippets illustrate the byte layouts; the supplied <code>make_assets.py</code> is the complete source for reproducing all projects, labels, address maps and display-list commands. Running the snippets alone does not generate an ESE project.</p>
 <h2 id="references">8. References</h2>
 <ul><li>Source: <code>ese-usecases-Paletted8-TextVGA-Text8x8-BarGraph.zip</code> supplied for this tutorial; see its <code>README.md</code>, <code>make_assets.py</code>, five <code>.ese</code> projects and <code>resources/</code> assets.</li><li><a href="https://www.brtchip.com/">Bridgetek product and documentation portal</a></li><li><a href="https://bridgetek.github.io/">Bridgetek open-source documentation</a></li><li><a href="https://github.com/Bridgetek/Eve-MCU-Dev">EVE-MCU-Dev</a></li></ul>
-<footer>Bridgetek EVE Technical Tutorial · Source-grounded demonstration notes · <a href="https://bridgetek.github.io/en/#tutorials">Back to Tutorials</a></footer></main></body></html>
+<footer>Bridgetek EVE Technical Tutorial · Source-grounded demonstration notes · <a href="https://bridgetek.github.io/en/#tutorials">Back to Tutorials</a></footer></main><div id="screenshotViewer" class="viewer" role="dialog" aria-modal="true" aria-label="Expanded tutorial screenshot" aria-hidden="true" tabindex="-1">
+<div class="viewer-contents"><img id="viewerImage" alt=""><div id="viewerCaption" class="viewer-caption"></div><div class="viewer-instruction">Click anywhere or press Esc to return to the tutorial</div></div>
+</div>
+<script>
+(()=>{'use strict';
+const viewer=document.getElementById('screenshotViewer'),big=document.getElementById('viewerImage'),caption=document.getElementById('viewerCaption');
+let previous=null,lastTap=0,lastTarget=null;
+function open(btn){previous=btn;const img=btn.querySelector('img');big.src=img.currentSrc||img.src;big.alt=img.alt;caption.textContent=btn.closest('figure').querySelector('figcaption')?.textContent||'';viewer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';viewer.focus();}
+function close(){if(viewer.getAttribute('aria-hidden')==='true')return;viewer.setAttribute('aria-hidden','true');big.removeAttribute('src');document.body.style.overflow='';previous?.focus();}
+document.querySelectorAll('.shot-trigger').forEach(btn=>{
+btn.addEventListener('dblclick',e=>{e.preventDefault();open(btn);});
+btn.addEventListener('click',e=>{if(e.detail===0)open(btn);});
+btn.addEventListener('touchend',e=>{const now=Date.now();if(lastTarget===btn&&now-lastTap<350){e.preventDefault();open(btn);}lastTap=now;lastTarget=btn;},{passive:false});
+});
+viewer.addEventListener('click',close);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+})();
+</script>
+</body></html>
